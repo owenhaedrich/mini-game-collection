@@ -102,4 +102,42 @@ jobs:
             - name: Deploy to GitHub Pages
               id: deployment
               uses: actions/deploy-pages@v4
+
+            # Create release page
+            - name: Create Release
+              id: create_release
+              uses: actions/create-release@v1
+              env:
+                 # This token is provided by Actions
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                tag_name: ${{ github.ref }}
+                release_name: Release ${{ github.ref }}
+                body: |
+                  Changes in this Release
+                  - First Change
+                  - Second Change
+                draft: false
+                prerelease: false
+                
+            # Create zip of build
+            - name: Build project
+              # zip <output> <inputs> -t (date)
+              run: zip -t mini-game-collection ./build/WebGL/WebGL/
+
+            # Upload artifacts to release page
+            - name: Upload Release Build
+              id: upload-release-asset 
+              uses: actions/upload-release-asset@v1
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                # This pulls from the CREATE RELEASE step above, referencing
+                # it's ID to get its outputs object, which include a `upload_url`.
+                # See this blog post for more info:
+                # https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+                upload_url: ${{ steps.create_release.outputs.upload_url }}
+                asset_path: ./mini-game-collection.zip
+                asset_name: mini-game-collection.zip
+                asset_content_type: application/zip
               
