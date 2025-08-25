@@ -114,15 +114,13 @@ jobs:
                 tag_name: ${{ github.ref }}
                 release_name: Release ${{ github.ref }}
                 body: |
-                  Changes in this Release
-                  - First Change
-                  - Second Change
+                  Automatic build release.
                 draft: false
-                prerelease: false
+                prerelease: true
                 
             # Create zip of build
             - name: Build project
-              # zip <output> <inputs> -t (date)
+              # zip -t(date) <output> <inputs>
               run: zip -t mini-game-collection ./build/WebGL/WebGL/
 
             # Upload artifacts to release page
