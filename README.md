@@ -14,4 +14,4 @@ Ensure the mini game has been created using the guidelines in the [Wiki](https:/
 # Automated WebGL Builds ![Build and Deploy WebGL workflow badge.](https://github.com/MohawkRaphaelT/mini-game-collection/actions/workflows/main.yml/badge.svg)
 GitHub Pages are enabled for this project. Successful builds on `main` will be pushed to the site and [playable here](https://mohawkraphaelt.github.io/mini-game-collection/).
 
-If you are interested on how this automation works, consider reviewing main/.github/workflows/main.yml](https://github.com/MohawkRaphaelT/mini-game-collection/blob/main/.github/workflows/main.yml)'s source and comments. In brief, a GitHub Action is run that pulls the repository, builds the games WebGL, and pushes the artifacts (build) to GitHub Pages.
+If you are interested on how this automation works, consider reviewing [.github/workflows/main.yml](https://github.com/MohawkRaphaelT/mini-game-collection/blob/main/.github/workflows/main.yml)'s source and comments. In brief, a GitHub Action is run that pulls the repository, builds the games WebGL, and pushes the artifacts (build) to GitHub Pages.
