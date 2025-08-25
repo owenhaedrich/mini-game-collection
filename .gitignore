@@ -1,0 +1,4 @@
+# Ignore temporaries from GameCI
+/[Aa]rtifacts/
+/[Bb]uild/
+/[Bb]uilds/[Cc]odeCoverage/
