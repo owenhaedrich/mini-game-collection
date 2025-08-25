@@ -3,13 +3,10 @@ A mini game project designed to teach students intermediate GitHub workflow and 
 
 # DevCon #2 How To
 ## Initial Setup: Fork
-Teams will need to create a fork of the repository under one team member's account. That team member should then add all team members as collaboratos to the forked repository. The team will then be able to edit the repository.
+Teams will need to create a fork of the repository under one team member's account. That team member should then add all team members as collaborators to the forked repository. The team will then be able to edit the repository.
 
 ## Project Navigation
-It is expected that teams will review the [Wiki](https://github.com/MohawkRaphaelT/mini-game-collection/wiki) for information about the project such as configuration, restrictions, templates, and scripts.
-
-## Scripting
-You can review the Wiki [4. Mini Game Scripts](https://github.com/MohawkRaphaelT/mini-game-collection/wiki/4.-Mini-Game-Scripts) for more information on how to use the scripts provided.
+It is expected that teams will review the [Wiki](https://github.com/MohawkRaphaelT/mini-game-collection/wiki) for information about the project such as project configuration, workflow restrictions, scene templates, and scripting, and inputs.
 
 ## Contribute: Pull Request
 Ensure the mini game has been created using the guidelines in the [Wiki](https://github.com/MohawkRaphaelT/mini-game-collection/wiki). Once ready, one team member can create a Pull Request to ask that the repository owner pull their changes in. When creating a repository, please target the `Games20XX` branch rather than `main`.
@@ -17,4 +14,4 @@ Ensure the mini game has been created using the guidelines in the [Wiki](https:/
 # Automated WebGL Builds ![Build and Deploy WebGL workflow badge.](https://github.com/MohawkRaphaelT/mini-game-collection/actions/workflows/main.yml/badge.svg)
 GitHub Pages are enabled for this project. Successful builds on `main` will be pushed to the site and [playable here](https://mohawkraphaelt.github.io/mini-game-collection/).
 
-You can review [https://github.com/MohawkRaphaelT/mini-game-collection/blob/main/.github/workflows/main.yml]() to see how the build script is configured.
+If you are interested on how this automation works, consider reviewing main/.github/workflows/main.yml](https://github.com/MohawkRaphaelT/mini-game-collection/blob/main/.github/workflows/main.yml)'s source and comments. In brief, a GitHub Action is run that pulls the repository, builds the games WebGL, and pushes the artifacts (build) to GitHub Pages.
