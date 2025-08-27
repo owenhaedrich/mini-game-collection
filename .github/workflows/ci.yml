@@ -111,8 +111,8 @@ jobs:
                  # This token is provided by Actions
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
-                tag_name: ${{ github.ref }}
-                release_name: Release ${{ github.ref }}
+                tag_name: ci_${{ github.ref }}
+                release_name: Release ci_${{ github.ref }}
                 body: |
                   Automatic build release.
                 draft: false
