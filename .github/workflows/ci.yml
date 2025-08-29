@@ -54,8 +54,8 @@ jobs:
                 restore-keys: |
                   Library-
 
-            # Create Unity Build
-            - name: Build project (WebGL)
+            # Create WebGL Unity Build
+            - name: Unity Build (WebGL)
               uses: game-ci/unity-builder@v4
               env:
                 UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
@@ -74,21 +74,23 @@ jobs:
                 versioning: Semantic
 
             # Store build
+            # TODO: this seems like it's not needed
+            # UNLESS you upload from another workflow
             - uses: actions/upload-artifact@v4
               with:
                 name: Build
                 path: ./build
 
             # Push build to GitHub pages
-            - name: Setup Pages
+            - name: Setup GitHub Pages
               uses: actions/configure-pages@v5
 
-            - name: Upload artifact
+            - name: Upload Artifact to GitHub Pages
               uses: actions/upload-pages-artifact@v4
               with:
                 path: ./build/WebGL/WebGL/
 
-            - name: Deploy to GitHub Pages
+            - name: Deploy Artifacts to GitHub Pages
               id: deployment
               uses: actions/deploy-pages@v4
 
@@ -108,9 +110,11 @@ jobs:
                 zip -r $ZIP_NAME ./build/WebGL/WebGL*
                 echo "Archive created: $ZIP_NAME"
                 ls
+                
                 cd ./build
                 ls -R
                 cd ..
+
                 ### Store in GitHub's env variable
                 echo "ZIP_NAME=$ZIP_NAME" >> $GITHUB_ENV
                 
@@ -126,6 +130,7 @@ jobs:
             - name: Get SHA8
               run: echo "SHA8=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
 
+            # TODO: 
             # Create release page
             - name: Create Release Page
               id: create_release_page
