@@ -54,62 +54,51 @@ jobs:
                 restore-keys: |
                   Library-
 
-            # Test
-            #- name: Run Unity tests
-            #  uses: game-ci/unity-test-runner@v4
-            #  env:
-            #    UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-            #    UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
-            #    UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
-            #  with:
-            #    githubToken: ${{ secrets.GITHUB_TOKEN }}
-            #    projectPath: ./unity-project/mini-game-collection/
-
             # Create build
-            #- name: Build project (WebGL)
-            #  uses: game-ci/unity-builder@v4
-            #  env:
-            #    UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-            #    UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
-            #    UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
-            #  with:
-            #    # Temporary workaround while LFS dirtying issue persists
-            #    allowDirtyBuild: true
-            #    buildsPath: ./build
-            #    buildMethod: UnityBuilderAction.BuildScript.Build
-            #    # Parameters to pass to buildMethod if required
-            #    #customParameters:
-            #    projectPath: ./unity-project/mini-game-collection/
-            #    targetPlatform: WebGL
-            #    unityVersion: auto
-            #    versioning: Semantic
+            - name: Build project (WebGL)
+              uses: game-ci/unity-builder@v4
+              env:
+                UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+                UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+                UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+              with:
+                # Temporary workaround while LFS dirtying issue persists
+                allowDirtyBuild: true
+                buildsPath: ./build
+                buildMethod: UnityBuilderAction.BuildScript.Build
+                # Parameters to pass to buildMethod if required
+                #customParameters:
+                projectPath: ./unity-project/mini-game-collection/
+                targetPlatform: WebGL
+                unityVersion: auto
+                versioning: Semantic
 
             # Output / store build
-            #- uses: actions/upload-artifact@v4
-            #  with:
-            #    name: Build
-            #    path: ./build
+            - uses: actions/upload-artifact@v4
+              with:
+                name: Build
+                path: ./build
 
             # Push build to GitHub pages
-            #- name: Setup Pages
-            #  uses: actions/configure-pages@v5
+            - name: Setup Pages
+              uses: actions/configure-pages@v5
 
-            #- name: Upload artifact
-            #  uses: actions/upload-pages-artifact@v4
-            #  with:
-            #    path: ./build/WebGL/WebGL/
+            - name: Upload artifact
+              uses: actions/upload-pages-artifact@v4
+              with:
+                path: ./build/WebGL/WebGL/
 
-            #- name: Deploy to GitHub Pages
-            #  id: deployment
-            #  uses: actions/deploy-pages@v4
+            - name: Deploy to GitHub Pages
+              id: deployment
+              uses: actions/deploy-pages@v4
 
-            # TEST - speed up iteration by skipping build
-            - name: TEST - Create test artifacts
-              run: |
-                mkdir ./build
-                mkdir ./build/WebGL
-                mkdir ./build/WebGL/WebGL
-                touch ./build/WebGL/WebGL/sample.txt
+            ## TEST - speed up iteration by skipping build
+            #- name: TEST - Create test artifacts
+            #  run: |
+            #    mkdir ./build
+            #    mkdir ./build/WebGL
+            #    mkdir ./build/WebGL/WebGL
+            #    touch ./build/WebGL/WebGL/sample.txt
 
             # Create zip of build
             - name: ZIP Build
