@@ -105,7 +105,7 @@ jobs:
               run: |
                 ### Generate archive
                 export ZIP_NAME="mini-game-collection-$(date +"%Y-%m-%d").zip"
-                zip $ZIP_NAME ./build/WebGL/WebGL/
+                zip $ZIP_NAME ./build/WebGL/WebGL/*
                 echo "Archive created: $ZIP_NAME"
                 ls
                 cd ./build
