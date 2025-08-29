@@ -105,7 +105,7 @@ jobs:
               run: |
                 ### Generate archive
                 export ZIP_NAME="mini-game-collection-$(date +"%Y-%m-%d").zip"
-                zip $ZIP_NAME ./build/WebGL/WebGL/*
+                zip -r $ZIP_NAME ./build/WebGL/WebGL
                 echo "Archive created: $ZIP_NAME"
                 ls
                 cd ./build
@@ -135,7 +135,7 @@ jobs:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
                 tag_name: ci_${{ github.ref_name }}_${{ env.SHA8 }}
-                release_name: Release ci_${{ github.ref_name }}_${{ env.SHA8 }} (${{ env.BUILD_DATE }})
+                release_name: ${{ env.BUILD_DATE }} - ci_${{ github.ref_name }}_${{ env.SHA8 }}
                 body: |
                   Automatic build release generated on ${{ env.BUILD_DATE }}.
                   Generated from `${{ github.ref_name }}` commit ${{ github.sha }}
