@@ -66,42 +66,46 @@ jobs:
             #    projectPath: ./unity-project/mini-game-collection/
 
             # Create build
-            - name: Build project (WebGL)
-              uses: game-ci/unity-builder@v4
-              env:
-                UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-                UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
-                UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
-              with:
-                # Temporary workaround while LFS dirtying issue persists
-                allowDirtyBuild: true
-                buildsPath: ./build
-                buildMethod: UnityBuilderAction.BuildScript.Build
-                # Parameters to pass to buildMethod if required
-                #customParameters:
-                projectPath: ./unity-project/mini-game-collection/
-                targetPlatform: WebGL
-                unityVersion: auto
-                versioning: Semantic
+            #- name: Build project (WebGL)
+            #  uses: game-ci/unity-builder@v4
+            #  env:
+            #    UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+            #    UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+            #    UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+            #  with:
+            #    # Temporary workaround while LFS dirtying issue persists
+            #    allowDirtyBuild: true
+            #    buildsPath: ./build
+            #    buildMethod: UnityBuilderAction.BuildScript.Build
+            #    # Parameters to pass to buildMethod if required
+            #    #customParameters:
+            #    projectPath: ./unity-project/mini-game-collection/
+            #    targetPlatform: WebGL
+            #    unityVersion: auto
+            #    versioning: Semantic
 
             # Output / store build
-            - uses: actions/upload-artifact@v4
-              with:
-                name: Build
-                path: ./build
+            #- uses: actions/upload-artifact@v4
+            #  with:
+            #    name: Build
+            #    path: ./build
 
             # Push build to GitHub pages
-            - name: Setup Pages
-              uses: actions/configure-pages@v5
+            #- name: Setup Pages
+            #  uses: actions/configure-pages@v5
 
-            - name: Upload artifact
-              uses: actions/upload-pages-artifact@v4
-              with:
-                path: ./build/WebGL/WebGL/
+            #- name: Upload artifact
+            #  uses: actions/upload-pages-artifact@v4
+            #  with:
+            #    path: ./build/WebGL/WebGL/
 
             - name: Deploy to GitHub Pages
               id: deployment
               uses: actions/deploy-pages@v4
+
+            # TEST - speed up iteration by skipping build
+            - name: TEST - Create test artifacts
+              run: touch ./build/WebGL/WebGL/sample.txt
 
             # Create zip of build
             - name: Build project
@@ -115,8 +119,8 @@ jobs:
             # Release Timestamp
             - name: Create release timestamp
               run: |
-                export BUILD_TIME="(date +"%Y-%m-%d %T)"
-                echo "Build time: $BUILD_TIME"
+                export BUILD_DATE="date"
+                echo "Build time: $BUILD_DATE"
 
             # Create release page
             - name: Create Release
@@ -127,9 +131,11 @@ jobs:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
                 tag_name: ci_${{ env.branch }}_${{ github.sha }}
-                release_name: Release ci_${{ github.ref }} (${{ env.BUILD_TIME }})
+                release_name: Release ci_${{ env.branch }} (${{ env.BUILD_DATE }})
                 body: |
-                  Automatic build release.
+                  Automatic build release generated on ${{ env.BUILD_DATE }}.
+                  GitHub ref: ${{ github.ref }}
+                  Commit SHA hash: ${{ github.sha }}
                 draft: false
                 prerelease: true
                 
