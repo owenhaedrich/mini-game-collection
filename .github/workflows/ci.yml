@@ -103,6 +103,21 @@ jobs:
               id: deployment
               uses: actions/deploy-pages@v4
 
+            # Create zip of build
+            - name: Build project
+              # zip <output> <input>
+              run: |
+                export ZIP_NAME="mini-game-collection-$(date +"%Y-%m-%d").zip"
+                zip ZIP_NAME ./build/WebGL/WebGL/
+                echo "Archive created: $ZIP_NAME"
+                ls
+
+            # Release Timestamp
+            - name: Create release timestamp
+              run: |
+                export BUILD_TIME="(date +"%Y-%m-%d %T)"
+                echo "Build time: $BUILD_TIME"
+
             # Create release page
             - name: Create Release
               id: create_release
@@ -111,21 +126,13 @@ jobs:
                  # This token is provided by Actions
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
-                tag_name: ci_${{ github.ref }}.{{ github.sha }}
-                release_name: Release ci_${{ github.ref }}
+                tag_name: ci_${{ env.branch }}_${{ github.sha }}
+                release_name: Release ci_${{ github.ref }} (${{ env.BUILD_TIME }})
                 body: |
                   Automatic build release.
                 draft: false
                 prerelease: true
                 
-            # Create zip of build
-            - name: Build project
-              # zip <output> <input>
-              run: |
-                export ZIP_NAME="mini-game-collection-$(date +"%Y-%m-%d").zip"
-                zip ZIP_NAME ./build/WebGL/WebGL/
-                ls
-
             # Upload artifacts to release page
             - name: Upload Release Build
               id: upload-release-asset 
