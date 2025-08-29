@@ -112,23 +112,25 @@ jobs:
                 touch ./build/WebGL/WebGL/sample.txt
 
             # Create zip of build
-            - name: Build project
-              # Generate archive name
-              run: export ZIP_NAME="mini-game-collection-$(date +"%Y-%m-%d").zip"
-              # zip <output> <input>
-              run: zip ZIP_NAME ./build/WebGL/WebGL/
-              run: echo "Archive created: $ZIP_NAME"
-              run: ls
-              # Store in GitHub's env variable
-              run: echo "ZIP_NAME=($ZIP_NAME)" >> $GITHUB_ENV
+            - name: ZIP Build
+              run: |
+                ### Generate archive name
+                export ZIP_NAME="mini-game-collection-$(date +"%Y-%m-%d").zip"
+                ### zip <output> <input>
+                zip ZIP_NAME ./build/WebGL/WebGL/
+                echo "Archive created: $ZIP_NAME"
+                ls
+                ### Store in GitHub's env variable
+                echo "ZIP_NAME=($ZIP_NAME)" >> $GITHUB_ENV
                 
             # Release Timestamp
-            - name: Create release timestamp
-              # Generate date
-              run: export BUILD_DATE="date"
-              run: echo "Build time: $BUILD_DATE"
-              # Store in GitHub's env variable
-              run: echo "BUILD_DATE=(echo $BUILD_DATE)" >> $GITHUB_ENV
+            - name: Create Release Timestamp
+              run: |
+                ### Generate date
+                export BUILD_DATE="date"
+                echo "Build time: $BUILD_DATE"
+                ### Store in GitHub's env variable
+                echo "BUILD_DATE=(echo $BUILD_DATE)" >> $GITHUB_ENV
 
             # Create release page
             - name: Create Release Page
