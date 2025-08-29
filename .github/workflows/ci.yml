@@ -140,12 +140,12 @@ jobs:
                  # This token is provided by Actions
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
-                tag_name: ci_${{ env.branch }}_${{ github.sha }}
-                release_name: Release ci_${{ env.branch }} (${{ env.BUILD_DATE }})
+                tag_name: ci_${{ github.ref_name }}_${{ github.sha }}
+                release_name: Release ci_${{ github.ref_name }}_${{ github.sha }} (${{ env.BUILD_DATE }})
                 body: |
                   Automatic build release generated on ${{ env.BUILD_DATE }}.
+                  Generated from ${{ github.ref_name }} commit ${{ github.sha }}
                   GitHub ref: ${{ github.ref }}
-                  Commit SHA hash: ${{ github.sha }}
                 draft: false
                 prerelease: true
 
