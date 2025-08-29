@@ -45,7 +45,7 @@ jobs:
                 git add .
                 git reset --hard
 
-            # Cache/Use Unity Library files if available
+            # Cache/Use Unity Library Files (if available)
             - name: Prepare Unity cache
               uses: actions/cache@v3
               with:
@@ -54,7 +54,7 @@ jobs:
                 restore-keys: |
                   Library-
 
-            # Create build
+            # Create Unity Build
             - name: Build project (WebGL)
               uses: game-ci/unity-builder@v4
               env:
@@ -73,7 +73,7 @@ jobs:
                 unityVersion: auto
                 versioning: Semantic
 
-            # Output / store build
+            # Store build
             - uses: actions/upload-artifact@v4
               with:
                 name: Build
@@ -103,12 +103,14 @@ jobs:
             # Create zip of build
             - name: ZIP Build
               run: |
-                ### Generate archive name
+                ### Generate archive
                 export ZIP_NAME="mini-game-collection-$(date +"%Y-%m-%d").zip"
-                ### zip <output> <input>
                 zip $ZIP_NAME ./build/WebGL/WebGL/
                 echo "Archive created: $ZIP_NAME"
                 ls
+                cd ./build
+                ls -R
+                cd ..
                 ### Store in GitHub's env variable
                 echo "ZIP_NAME=$ZIP_NAME" >> $GITHUB_ENV
                 
