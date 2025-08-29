@@ -99,9 +99,9 @@ jobs:
             #  with:
             #    path: ./build/WebGL/WebGL/
 
-            - name: Deploy to GitHub Pages
-              id: deployment
-              uses: actions/deploy-pages@v4
+            #- name: Deploy to GitHub Pages
+            #  id: deployment
+            #  uses: actions/deploy-pages@v4
 
             # TEST - speed up iteration by skipping build
             - name: TEST - Create test artifacts
