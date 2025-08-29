@@ -118,6 +118,7 @@ jobs:
                 export ZIP_NAME="mini-game-collection-$(date +"%Y-%m-%d").zip"
                 zip ZIP_NAME ./build/WebGL/WebGL/
                 echo "Archive created: $ZIP_NAME"
+                echo $ZIP_NAME >> $GH_ZIP_NAME
                 ls
 
             # Release Timestamp
@@ -125,10 +126,11 @@ jobs:
               run: |
                 export BUILD_DATE="date"
                 echo "Build time: $BUILD_DATE"
+                echo $BUILD_DATE >> $GH_BUILD_DATE
 
             # Create release page
-            - name: Create Release
-              id: create_release
+            - name: Create Release Page
+              id: create_release_page
               uses: actions/create-release@v1
               env:
                  # This token is provided by Actions
@@ -154,8 +156,8 @@ jobs:
                 # it's ID to get its outputs object, which include a `upload_url`.
                 # See this blog post for more info:
                 # https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-                upload_url: ${{ steps.create_release.outputs.upload_url }}
-                asset_path: ${{ env.ZIP_NAME }}
-                asset_name: ${{ env.ZIP_NAME }}
+                upload_url: ${{ steps.create_release_page.outputs.upload_url }}
+                asset_path: ${{ env.GH_ZIP_NAME }}
+                asset_name: ${{ env.GH_ZIP_NAME }}
                 asset_content_type: application/zip
               
