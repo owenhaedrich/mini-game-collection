@@ -105,7 +105,11 @@ jobs:
 
             # TEST - speed up iteration by skipping build
             - name: TEST - Create test artifacts
-              run: touch ./build/WebGL/WebGL/sample.txt
+              run: |
+                mkdir ./build
+                mkdir ./build/WebGL
+                mkdir ./build/WebGL/WebGL
+                touch ./build/WebGL/WebGL/sample.txt
 
             # Create zip of build
             - name: Build project
