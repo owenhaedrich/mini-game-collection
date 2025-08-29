@@ -121,16 +121,16 @@ jobs:
                 echo "Archive created: $ZIP_NAME"
                 ls
                 ### Store in GitHub's env variable
-                echo "ZIP_NAME=($ZIP_NAME)" >> $GITHUB_ENV
+                echo "ZIP_NAME=$ZIP_NAME" >> $GITHUB_ENV
                 
             # Release Timestamp
             - name: Create Release Timestamp
               run: |
                 ### Generate date
-                export BUILD_DATE="date"
+                export BUILD_DATE=$(date)
                 echo "Build time: $BUILD_DATE"
                 ### Store in GitHub's env variable
-                echo "BUILD_DATE=(echo $BUILD_DATE)" >> $GITHUB_ENV
+                echo "BUILD_DATE=$BUILD_DATE" >> $GITHUB_ENV
 
             # Create release page
             - name: Create Release Page
@@ -148,7 +148,7 @@ jobs:
                   Commit SHA hash: ${{ github.sha }}
                 draft: false
                 prerelease: true
-                
+
             # Upload artifacts to release page
             - name: Upload Release Build
               id: upload-release-asset 
