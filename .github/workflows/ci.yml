@@ -117,7 +117,7 @@ jobs:
                 ### Generate archive name
                 export ZIP_NAME="mini-game-collection-$(date +"%Y-%m-%d").zip"
                 ### zip <output> <input>
-                zip ZIP_NAME ./build/WebGL/WebGL/
+                zip $ZIP_NAME ./build/WebGL/WebGL/
                 echo "Archive created: $ZIP_NAME"
                 ls
                 ### Store in GitHub's env variable
