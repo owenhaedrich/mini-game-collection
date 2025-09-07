@@ -16,5 +16,5 @@ Once ready, one team member can create a Pull Request to ask that the repository
 # Automated WebGL Builds ![Build and Deploy WebGL workflow badge.](https://github.com/MohawkRaphaelT/mini-game-collection/actions/workflows/ci.yml/badge.svg)
 GitHub Pages are enabled for this project. Successful builds on `main` will be pushed to the site and [playable here](https://mohawkraphaelt.github.io/mini-game-collection/).
 
-If you are interested to know more about how this automation works, consider reviewing [.github/workflows/ci.yml](https://github.com/MohawkRaphaelT/mini-game-collection/blob/main/.github/workflows/ci.yml)'s source and comments. In brief, a GitHub Action is run that starts up a Linux virtual mach9ine with Unity on it, pulls down the repository, creates a WebGL build, then pushes the artifacts (build) to GitHub Pages.
+If you are interested to know more about how this automation works, consider reviewing [.github/workflows/ci.yml](https://github.com/MohawkRaphaelT/mini-game-collection/blob/main/.github/workflows/ci.yml)'s source and comments. In brief, a GitHub Action is run that starts up a Linux virtual machine with Unity on it, pulls down the repository, creates a WebGL build, then pushes the artifacts (build) to GitHub Pages.
 
