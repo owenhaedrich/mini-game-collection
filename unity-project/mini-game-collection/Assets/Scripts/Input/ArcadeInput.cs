@@ -78,6 +78,18 @@ namespace MiniGameCollection
             public AxisButton Down { get; private set; }
             public AxisButton Left { get; private set; }
             public AxisButton Right { get; private set; }
+            public static Color Color
+            {
+                get
+                {
+                    return ID switch
+                    {
+                        1 => Color.red,
+                        2 => Color.blue,
+                        _ => throw new NotImplementedException(),
+                    };
+                }
+            }
         }
 
         public class Axis
@@ -88,12 +100,21 @@ namespace MiniGameCollection
             }
 
             public string InputName { get; private set; }
-            public float Value => Input.GetAxis(InputName);
+            public float Value => VirtualDeadzone(Input.GetAxis(InputName));
+            public static float Deadzone => 0.7f; // sin/cos 45 degrees
 
 
             public static implicit operator float(Axis axis)
             {
                 return axis.Value;
+            }
+
+            private static float VirtualDeadzone(float axis)
+            {
+                float sign = Mathf.Sign(axis);
+                float value = Mathf.Abs(axis) >= Deadzone ? 1 : 0;
+                value *= sign;
+                return value;
             }
         }
 
@@ -106,12 +127,31 @@ namespace MiniGameCollection
             }
 
             public Axis X { get; private set; }
-            public Axis Y{ get; private set; }
+            public Axis Y { get; private set; }
+
 
             public static implicit operator Vector2(Axis2 axis2)
             {
-                Vector2 value = new Vector2(axis2.X.Value, axis2.Y.Value);
+                Vector2 value = new(axis2.X.Value, axis2.Y.Value);
+                value = VirtualJoystickGate(value);
                 return value;
+            }
+
+            private static Vector2 VirtualJoystickGate(Vector2 axis2)
+            {
+                // Ignore case where joystick has no valid value
+                bool isNoAngle = Mathf.Abs(axis2.x) + Mathf.Abs(axis2.y) == 0;
+                if (isNoAngle)
+                    return Vector2.zero;
+
+                // Normalize inputs onto unit circle as an 8-way-gated joystick.
+                const float TAU = Mathf.PI * 2;
+                float angle = Mathf.Atan2(axis2.y, axis2.x);
+                float angleIncrementsOf45Degrees = Mathf.Round(angle / TAU * 8) / 8f * TAU;
+                Vector2 axis2AsGatedAxis2 = new(
+                    Mathf.Cos(angleIncrementsOf45Degrees),
+                    Mathf.Sin(angleIncrementsOf45Degrees));
+                return axis2AsGatedAxis2;
             }
         }
 

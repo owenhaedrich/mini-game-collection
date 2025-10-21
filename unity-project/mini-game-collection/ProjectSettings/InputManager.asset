@@ -38,6 +38,22 @@ InputManager:
     axis: 5
     joyNum: 1
   - serializedVersion: 3
+    m_Name: P1_AxisX
+    descriptiveName: Player 1 horizontal axis via XBOX left analog stick.
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 3
+    dead: 0.001
+    sensitivity: 3
+    snap: 1
+    invert: 1
+    type: 2
+    axis: 0
+    joyNum: 1
+  - serializedVersion: 3
     m_Name: P1_AxisY
     descriptiveName: Player 1 vertical axis via keyboard.
     descriptiveNegativeName: 
@@ -68,6 +84,22 @@ InputManager:
     invert: 0
     type: 2
     axis: 6
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: P1_AxisY
+    descriptiveName: Player 1 vertical axis via XBOX left analog stick.
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 3
+    dead: 0.001
+    sensitivity: 3
+    snap: 1
+    invert: 1
+    type: 2
+    axis: 1
     joyNum: 1
   - serializedVersion: 3
     m_Name: P1_Action1
@@ -134,6 +166,22 @@ InputManager:
     axis: 5
     joyNum: 2
   - serializedVersion: 3
+    m_Name: P2_AxisX
+    descriptiveName: Player 2 horizontal axis via XBOX left analog stick.
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 3
+    dead: 0.001
+    sensitivity: 3
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 0
+    joyNum: 2
+  - serializedVersion: 3
     m_Name: P2_AxisY
     descriptiveName: Player 2 vertical axis via keyboard.
     descriptiveNegativeName: 
@@ -164,6 +212,22 @@ InputManager:
     invert: 0
     type: 2
     axis: 6
+    joyNum: 2
+  - serializedVersion: 3
+    m_Name: P2_AxisY
+    descriptiveName: Player 2 vertical axis via XBOX left analog stick.
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 3
+    dead: 0.001
+    sensitivity: 3
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 1
     joyNum: 2
   - serializedVersion: 3
     m_Name: P2_Action1
