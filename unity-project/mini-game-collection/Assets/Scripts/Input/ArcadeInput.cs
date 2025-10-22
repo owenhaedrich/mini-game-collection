@@ -26,13 +26,13 @@ namespace MiniGameCollection
             foreach (var player in Players)
             {
                 // 8-way joystick
-                foreach (var button in player.Buttons)
+                foreach (var axisButton in player.AxisButtons)
                 {
                     // Apply old input
-                    button.PreviousState = button.CurrentState;
+                    axisButton.PreviousState = axisButton.CurrentState;
                     // Record current input for next update
-                    bool state = button.Down;
-                    button.CurrentState = state;
+                    bool state = axisButton.Down;
+                    axisButton.CurrentState = state;
                 }
 
                 // Buttons
@@ -66,6 +66,7 @@ namespace MiniGameCollection
                 Down = new AxisButton($"P{id}_AxisY", false);
             }
 
+            public AxisButton[] AxisButtons => new AxisButton[] { Up, Down, Left, Right };
             public Button[] Buttons => new Button[] { Action1, Action2 };
 
             public static int ID { get; private set; }
