@@ -2,19 +2,15 @@ using UnityEngine;
 
 namespace MiniGameCollection.Games2025.Team00
 {
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : MiniGameBehaviour
     {
-        [field: SerializeField]
-        public PlayerID PlayerID { get; private set; }
-
-        [field: SerializeField]
-        public GameObject BulletPrefab { get; private set; }
-
-        [field: SerializeField]
-        public Rigidbody2D Rigidbody2D { get; private set; }
-
-        [field: SerializeField]
-        public float BulletSpeed { get; private set; } = 2f; // 2 units a second
+        [field: SerializeField] public PlayerID PlayerID { get; private set; }
+        [field: SerializeField] public GameObject BulletPrefab { get; private set; }
+        [field: SerializeField] public Rigidbody2D Rigidbody2D { get; private set; }
+        [field: SerializeField] public ScoreKeeper ScoreKeeper { get; private set; }
+        [field: SerializeField] public float BulletSpeed { get; private set; } = 8f; // units per second
+        [field: SerializeField] public float ShipSpeed { get; private set; } = 10f; // units per second
+        [field: SerializeField] public float MinMaxY { get; private set; } = 4f; // constraints along Y axis movement
 
         private BulletOwner Owner => PlayerID switch
         {
@@ -26,8 +22,9 @@ namespace MiniGameCollection.Games2025.Team00
 
         void Update()
         {
-            float movement = ArcadeInput.Players[(int)PlayerID].AxisY * Time.deltaTime;
+            float movement = ArcadeInput.Players[(int)PlayerID].AxisY * Time.deltaTime * ShipSpeed;
             Vector3 newPosition = transform.position + new Vector3(0, movement, 0);
+            newPosition.y = Mathf.Clamp(newPosition.y, -MinMaxY, MinMaxY);
             Rigidbody2D.MovePosition(newPosition);
 
             if (ArcadeInput.Players[(int)PlayerID].Action1.Pressed)
@@ -41,7 +38,7 @@ namespace MiniGameCollection.Games2025.Team00
             Vector3 position = transform.position + transform.up;
             GameObject prefab = Instantiate(BulletPrefab, position, transform.rotation);
             Bullet bullet = prefab.GetComponent<Bullet>();
-            bullet.Shoot(Owner, transform.up, BulletSpeed);
+            bullet.Shoot(Owner, transform.up, BulletSpeed, ScoreKeeper);
         }
 
         private void OnValidate()

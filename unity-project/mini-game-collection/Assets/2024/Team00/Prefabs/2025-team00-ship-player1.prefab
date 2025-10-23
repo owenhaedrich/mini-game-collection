@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 2935933690159508828}
   - component: {fileID: 3745821509184164314}
   - component: {fileID: 5912792988326897560}
-  m_Layer: 0
+  - component: {fileID: 3111037690039454413}
+  m_Layer: 7
   m_Name: 2025-team00-ship-player1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4577788559174076318}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -75,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 018a96062b68da34f9f8850b157f3bfc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 772a421a033da7b44af4e98bded8cf4c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -98,11 +99,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f32094e205f32fc47b63557c09441b72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <MiniGameManager>k__BackingField: {fileID: 0}
   <PlayerID>k__BackingField: 0
   <BulletPrefab>k__BackingField: {fileID: 6402966615391357958, guid: 0c147a97b0ec4644dbb6bb89f2e63e87,
     type: 3}
   <Rigidbody2D>k__BackingField: {fileID: 5912792988326897560}
-  <BulletSpeed>k__BackingField: 3
+  <ScoreKeeper>k__BackingField: {fileID: 0}
+  <BulletSpeed>k__BackingField: 8
+  <ShipSpeed>k__BackingField: 10
+  <MinMaxY>k__BackingField: 4
 --- !u!50 &5912792988326897560
 Rigidbody2D:
   serializedVersion: 4
@@ -117,8 +122,8 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_AngularDrag: 0
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -130,3 +135,38 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!58 &3111037690039454413
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4577788559174076318}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.35

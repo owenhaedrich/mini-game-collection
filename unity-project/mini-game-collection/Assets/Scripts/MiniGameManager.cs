@@ -147,8 +147,6 @@ namespace MiniGameCollection
 
             // Pass in initial time
             OnTimerInit?.Invoke(TimeInt);
-            PreviousIntTime = TimeInt;
-
             State = MiniGameManagerState.WaitingForStart;
         }
 

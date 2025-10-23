@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4112613009314494042}
   - component: {fileID: 6850185351730370266}
   - component: {fileID: 4123173638111944719}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: 2025-team00-bullet-player2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,6 +102,8 @@ MonoBehaviour:
   <Owner>k__BackingField: 2
   <Rigidbody2D>k__BackingField: {fileID: 4123173638111944719}
   <SelfDestructTime>k__BackingField: 10
+  <PointPenalty>k__BackingField: -100
+  <ScoreKeeper>k__BackingField: {fileID: 0}
 --- !u!70 &6850185351730370266
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -131,7 +133,7 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
