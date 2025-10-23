@@ -140,6 +140,7 @@ namespace MiniGameCollection
                 TimeFloat = MaxGameTime switch
                 {
                     MiniGameMaxTime.Seconds30 => 30f,
+                    MiniGameMaxTime.Seconds45 => 45f,
                     MiniGameMaxTime.Seconds60 => 60f,
                     _ => throw new NotImplementedException($"{MaxGameTime}")
                 };
