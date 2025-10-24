@@ -7,7 +7,7 @@ namespace MiniGameCollection.Games2025.Team00
         [field: SerializeField] public BulletOwner Owner { get; private set; }
         [field: SerializeField] public Rigidbody2D Rigidbody2D { get; private set; }
         [field: SerializeField] public float SelfDestructTime { get; private set; } = 10; // 10 seconds
-        [field: SerializeField] public int PointPenalty { get; private set; } = -100;
+        [field: SerializeField] public int PointPenalty { get; set; } = -100;
 
         [field: ReadOnlyGUI]
         [field: SerializeField] public ScoreKeeper ScoreKeeper { get; private set; }
@@ -51,7 +51,6 @@ namespace MiniGameCollection.Games2025.Team00
         {
             var enemy = collider2d.GetComponent<Enemy>();
             var player = collider2d.GetComponent<PlayerController>();
-            PlayerID bulletOwnerPlayerID = OwnerToPlayerID(Owner);
 
             switch (Owner)
             {
@@ -60,6 +59,7 @@ namespace MiniGameCollection.Games2025.Team00
                     if (enemy != null)
                     {
                         // Add to bullet owner's score
+                        PlayerID bulletOwnerPlayerID = OwnerToPlayerID(Owner);
                         ScoreKeeper.AddScore(bulletOwnerPlayerID, enemy.PointsAwarded);
                         // Destroy enemy and this bullet
                         enemy.DestroyEnemy();
@@ -68,6 +68,7 @@ namespace MiniGameCollection.Games2025.Team00
                     else if (player != null)
                     {
                         // Check if hit another player
+                        PlayerID bulletOwnerPlayerID = OwnerToPlayerID(Owner);
                         if (bulletOwnerPlayerID != player.PlayerID)
                         {
                             // Reduce other player's score
@@ -81,7 +82,7 @@ namespace MiniGameCollection.Games2025.Team00
                     if (player != null)
                     {
                         // Reduce player's score
-                        ScoreKeeper.AddScore(player.PlayerID, enemy.PointPenalty);
+                        ScoreKeeper.AddScore(player.PlayerID, this.PointPenalty);
                     }
                     break;
             }

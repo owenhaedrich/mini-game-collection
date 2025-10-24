@@ -161,6 +161,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57e994b55a364b746aab66acca17fa15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <MiniGameManager>k__BackingField: {fileID: 0}
   <EnemyType>k__BackingField: 2
   <PointsAwarded>k__BackingField: 1000
   <PointPenalty>k__BackingField: -500
+  <ShootInterval>k__BackingField: 1.5
+  <BulletSpeed>k__BackingField: 3
+  <BulletPrefab>k__BackingField: {fileID: 0}
+  <ScoreKeeper>k__BackingField: {fileID: 0}
