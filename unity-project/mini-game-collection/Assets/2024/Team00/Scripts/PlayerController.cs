@@ -23,7 +23,10 @@ namespace MiniGameCollection.Games2025.Team00
 
         void Update()
         {
-            float movement = ArcadeInput.Players[(int)PlayerID].AxisY * Time.deltaTime * ShipSpeed;
+            float axisX = ArcadeInput.Players[(int)PlayerID].AxisX;
+            if (PlayerID == PlayerID.Player1)
+                axisX = -axisX;
+            float movement = axisX * Time.deltaTime * ShipSpeed;
             Vector3 newPosition = transform.position + new Vector3(0, movement, 0);
             newPosition.y = Mathf.Clamp(newPosition.y, -MinMaxY, MinMaxY);
             Rigidbody2D.MovePosition(newPosition);

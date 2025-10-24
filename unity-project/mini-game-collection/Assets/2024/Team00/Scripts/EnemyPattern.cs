@@ -56,6 +56,9 @@ namespace MiniGameCollection.Games2025.Team00
             for (int i = 0; i < EnemiesInPattern.Length; i++)
             {
                 Rigidbody2D enemy = EnemiesInPattern[i];
+                if (enemy == null)
+                    continue;
+
                 Vector3 position = startPosition + AlignmentSpacing * i * startDirection;
                 enemy.transform.position = position;
                 enemy.gameObject.SetActive(true);
@@ -129,13 +132,13 @@ namespace MiniGameCollection.Games2025.Team00
                 return;
 
             Gizmos.color = DebugGizmosColor;
-            Gizmos.DrawWireCube(Waypoints[0].Position, Vector3.one);
+            Gizmos.DrawWireCube(Waypoints[0].Position, Vector3.one * 0.5f);
             for (int i = 0; i < Waypoints.Length - 1; i++)
             {
                 int index0 = i + 0;
                 int index1 = i + 1;
                 Gizmos.DrawLine(Waypoints[index0].Position, Waypoints[index1].Position);
-                Gizmos.DrawCube(Waypoints[index1].Position, Vector3.one);
+                Gizmos.DrawCube(Waypoints[index1].Position, Vector3.one * 0.5f);
             }
         }
     }
