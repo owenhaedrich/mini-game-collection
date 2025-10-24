@@ -31,7 +31,7 @@ namespace MiniGameCollection
                     // Apply old input
                     axisButton.PreviousState = axisButton.CurrentState;
                     // Record current input for next update
-                    bool state = axisButton.Down;
+                    bool state = axisButton.Held;
                     axisButton.CurrentState = state;
                 }
 
@@ -176,8 +176,8 @@ namespace MiniGameCollection
             public string InputName { get; private set; }
             public bool PreviousState { get; internal set; }
             public bool CurrentState { get; internal set; }
-            public bool Down => AxisButtonDown();
-            public bool Up => AxisButtonUp();
+            public bool Held => AxisButtonDown();
+            public bool Inactive => AxisButtonUp();
             public bool Pressed => AxisButtonPressed();
             public bool Released  => AxisButtonReleased();
         }

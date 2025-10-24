@@ -44,7 +44,7 @@ namespace MiniGameCollection
         }
 
         /// <summary>
-        ///     Mini game time initiallized to value <paramref name="maxGameTime"/>.
+        ///     Mini game time initialized to value <paramref name="maxGameTime"/>.
         /// </summary>
         /// <param name="maxGameTime">The max game time.</param>
         protected virtual void OnTimerInitialized(int maxGameTime) { }
@@ -54,14 +54,14 @@ namespace MiniGameCollection
         /// </summary>
         /// <param name="message">The UI message to display.</param>
         protected virtual void OnCountDown(string message) { }
-        
+
         /// <summary>
-        ///     Event signalling mini game start.
+        ///     Event signaling mini game start.
         /// </summary>
         protected virtual void OnGameStart() { }
 
         /// <summary>
-        ///     Event singalling <paramref name="timeRemaining"/>.
+        ///     Event signaling <paramref name="timeRemaining"/>.
         /// </summary>
         /// <remarks>
         ///     Occurs every MonoBehaviour.Update.
@@ -70,7 +70,7 @@ namespace MiniGameCollection
         protected virtual void OnTimerUpdate(float timeRemaining) { }
 
         /// <summary>
-        ///     Event singalling <paramref name="timeRemaining"/>.
+        ///     Event signaling <paramref name="timeRemaining"/>.
         /// </summary>
         /// <param name="timeRemaining"></param>
         /// <remarks>
@@ -79,18 +79,18 @@ namespace MiniGameCollection
         protected virtual void OnTimerUpdateInt(int timeRemaining) { }
 
         /// <summary>
-        ///     Event signalling mini game end.
+        ///     Event signaling mini game end.
         /// </summary>
         protected virtual void OnGameEnd() { }
 
         /// <summary>
-        ///     Event signalling mini game <paramref name="winner"/>.
+        ///     Event signaling mini game <paramref name="winner"/>.
         /// </summary>
         /// <param name="winner">Who won the mini game.</param>
         protected virtual void OnGameWinner(MiniGameWinner winner) { }
 
         /// <summary>
-        ///     Event signalling mini game terminated.
+        ///     Event signaling mini game terminated.
         /// </summary>
         protected virtual void OnGameClose() { }
 
