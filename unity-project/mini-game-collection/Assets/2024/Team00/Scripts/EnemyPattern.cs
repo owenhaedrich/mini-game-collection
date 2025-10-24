@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace MiniGameCollection.Games2025.Team00
@@ -10,24 +8,13 @@ namespace MiniGameCollection.Games2025.Team00
         private float delayTimeRemaining;
         private float delayDistanceToMove;
         private int[] EnemyWaypointIndex;
+        private float[] MovementSpeed;
 
-        [field: SerializeField]
-        public Color DebugGizmosColor { get; private set; } = Color.red;
-
-        [field: SerializeField]
-        public int BeginPatternAtTime { get; private set; }
-
-        [field: SerializeField]
-        public float MovementSpeed { get; private set; } = 10f; // units per second
-
-        [field: SerializeField]
-        public float AlignmentSpacing { get; private set; } = 1f; // units
-
-        [field: SerializeField]
-        public Waypoint[] Waypoints { get; private set; }
-
-        [field: SerializeField]
-        public Rigidbody2D[] EnemiesInPattern { get; private set; }
+        [field: SerializeField] public Color DebugGizmosColor { get; private set; } = Color.red;
+        [field: SerializeField] public int BeginPatternAtTime { get; private set; }
+        [field: SerializeField] public float AlignmentSpacing { get; private set; } = 1f; // units
+        [field: SerializeField] public Waypoint[] Waypoints { get; private set; }
+        [field: SerializeField] public Rigidbody2D[] EnemiesInPattern { get; private set; }
 
         public bool IsPausedAtWaypoint => delayTimeRemaining > 0;
 
@@ -61,6 +48,7 @@ namespace MiniGameCollection.Games2025.Team00
 
             isActive = true;
             EnemyWaypointIndex = new int[EnemiesInPattern.Length];
+            MovementSpeed = new float[EnemiesInPattern.Length];
 
             // move and align
             Vector3 startPosition = Waypoints[0].Position;
@@ -76,13 +64,17 @@ namespace MiniGameCollection.Games2025.Team00
 
         private void MoveEnemyToWaypoint(int enemyIndex)
         {
-            // Get enemy
+            // Get enemy, return if destroyed
             Rigidbody2D enemy = EnemiesInPattern[enemyIndex];
             if (enemy == null)
                 return;
 
+            // Return if done movement
             if (EnemyWaypointIndex[enemyIndex] == Waypoints.Length)
                 return;
+
+            // Set up initial movement speed
+            MovementSpeed[enemyIndex] = Waypoints[EnemyWaypointIndex[enemyIndex]].SpeedToWaypoint;
 
             // Do movement
             Vector3 position = enemy.position;
@@ -90,7 +82,7 @@ namespace MiniGameCollection.Games2025.Team00
             // A bit janky, but basically override movement when paused at waypoint
             float distanceLeftToMove = IsPausedAtWaypoint
                 ? delayDistanceToMove
-                : MovementSpeed * Time.deltaTime;
+                : MovementSpeed[enemyIndex] * Time.deltaTime;
             while (distanceLeftToMove > 0)
             {
                 // get waypoint
