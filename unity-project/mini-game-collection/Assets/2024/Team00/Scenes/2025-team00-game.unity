@@ -1715,6 +1715,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 364804066}
     m_Modifications:
+    - target: {fileID: 1848099821276700528, guid: 16ca656ea10c00945b64427f19e6ce20,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5065182841980239786, guid: 16ca656ea10c00945b64427f19e6ce20,
         type: 3}
       propertyPath: m_Name
@@ -2291,11 +2296,11 @@ MonoBehaviour:
   <TimeFloat>k__BackingField: 0
   <DebugMode>k__BackingField: 1
   <DebugGameTime>k__BackingField: 10
-  <CountDownStartMessage>k__BackingField: GO!
+  <CountDownStartMessage>k__BackingField: Shoot!
   <MaxGameTime>k__BackingField: -278729886
   <Winner>k__BackingField: 0
   <AuthorCredits>k__BackingField:
-  - Firstname Lastname
+  - "Rapha\xEBl T\xE9treault"
 --- !u!114 &812188703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3206,6 +3211,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5349586030634380977, guid: acbba727d18dc614796db834d094ed54,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7402163964651650091, guid: acbba727d18dc614796db834d094ed54,
         type: 3}
@@ -4358,6 +4368,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4169327348439121375, guid: 6f265a8e0c39cb64fbaa72812c20c5d1,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8350525618515192057, guid: 6f265a8e0c39cb64fbaa72812c20c5d1,
         type: 3}

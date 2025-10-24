@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace MiniGameCollection.Games2025.Team00
 {
-    public class Bullet : MonoBehaviour
+    public class Bullet : MiniGameBehaviour
     {
         [field: SerializeField] public BulletOwner Owner { get; private set; }
         [field: SerializeField] public Rigidbody2D Rigidbody2D { get; private set; }
@@ -12,15 +12,19 @@ namespace MiniGameCollection.Games2025.Team00
         [field: ReadOnlyGUI]
         [field: SerializeField] public ScoreKeeper ScoreKeeper { get; private set; }
 
-        public void Shoot(BulletOwner owner, Vector2 direction, float speed, ScoreKeeper scoreKeeper)
+        // Abomination of a function...
+        public void Shoot(BulletOwner owner, Vector2 direction, float speed, ScoreKeeper scoreKeeper, MiniGameManager miniGameManager)
         {
+            // Assign references
             ScoreKeeper = scoreKeeper;
-
+            MiniGameManager = miniGameManager;
+            // Set up who shot this bullet
             this.Owner = owner;
+            // Assign movement direction
             Rigidbody2D.velocity = direction * speed;
 
             // Self-destruct this bullet after time
-            Destroy(this.transform.root.gameObject, SelfDestructTime);
+            Destroy(this.gameObject, SelfDestructTime);
         }
 
         private PlayerID OwnerToPlayerID(BulletOwner owner)
@@ -38,6 +42,10 @@ namespace MiniGameCollection.Games2025.Team00
             Destroy(this.gameObject);
         }
 
+        protected override void OnGameEnd()
+        {
+            DestroyBullet();
+        }
 
         private void OnTriggerEnter2D(Collider2D collider2d)
         {

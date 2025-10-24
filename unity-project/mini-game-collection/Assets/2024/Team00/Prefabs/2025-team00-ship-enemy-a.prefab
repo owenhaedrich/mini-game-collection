@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3324409737027026652}
   - component: {fileID: 5349586030634380977}
   - component: {fileID: 8467325285486336376}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: 2025-team00-ship-enemy-a
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -161,7 +161,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57e994b55a364b746aab66acca17fa15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MiniGameManager>k__BackingField: {fileID: 0}
   <EnemyType>k__BackingField: 0
   <PointsAwarded>k__BackingField: 100
   <PointPenalty>k__BackingField: -25

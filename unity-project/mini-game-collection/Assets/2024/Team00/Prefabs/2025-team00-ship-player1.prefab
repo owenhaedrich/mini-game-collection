@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3745821509184164314}
   - component: {fileID: 5912792988326897560}
   - component: {fileID: 3111037690039454413}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: 2025-team00-ship-player1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

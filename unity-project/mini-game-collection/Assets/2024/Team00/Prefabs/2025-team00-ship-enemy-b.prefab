@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4448601689723515647}
   - component: {fileID: 1848099821276700528}
   - component: {fileID: 2830639092360850061}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: 2025-team00-ship-enemy-b
   m_TagString: Untagged
   m_Icon: {fileID: 0}

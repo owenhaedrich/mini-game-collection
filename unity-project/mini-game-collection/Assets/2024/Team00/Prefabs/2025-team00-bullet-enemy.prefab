@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5796209252289982488}
   - component: {fileID: 2290231114809248066}
   - component: {fileID: 4705789048943688052}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: 2025-team00-bullet-enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
