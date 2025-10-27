@@ -19,7 +19,7 @@ namespace MiniGameCollection.Games2025.Team00
         public bool IsPausedAtWaypoint => delayTimeRemaining > 0;
 
 
-        void Update()
+        void FixedUpdate()
         {
             // Don't run unless active
             if (!isActive)
