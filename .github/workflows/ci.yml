@@ -66,6 +66,8 @@ jobs:
                 allowDirtyBuild: true
                 buildsPath: ./build
                 buildMethod: UnityBuilderAction.BuildScript.Build
+                # Build is looking for this version
+                customImage: unityci/editor:ubuntu-2022.3.62f2-webgl-3
                 # Parameters to pass to buildMethod if required
                 #customParameters:
                 projectPath: ./unity-project/mini-game-collection/
