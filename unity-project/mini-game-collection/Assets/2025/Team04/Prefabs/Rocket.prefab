@@ -138,6 +138,7 @@ MonoBehaviour:
   player2: 0
   fired: 0
   moveToPosition: {x: 0, y: 0, z: 0}
+  rotationInput: 0
 --- !u!50 &5482216749671964952
 Rigidbody2D:
   serializedVersion: 4

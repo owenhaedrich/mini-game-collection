@@ -7,11 +7,20 @@ namespace MiniGameCollection.Games2025.Team04
 {
     public class Player : MiniGameBehaviour
     {
+        // Player specific variables
         public bool player2;
         Vector2 down = Vector2.right;
         Vector2 right = Vector2.up;
+
+        // Input variables
         bool tryJump = false;
         bool tryInteract = false;
+        bool releaseInteract = false;
+        bool readyToPlace = false;
+        float placeTime = 0.5f;
+        float placeTimer = 0f;
+
+        // Movement variables
         float gravity = 9.8f;
         float moveForce = 7f;
         float jumpForce = 200f;
@@ -20,14 +29,20 @@ namespace MiniGameCollection.Games2025.Team04
         float landingCooldown = 0.01f;
         float landingTimer = 0f;
         bool canJump = true;
+        int faceDirection = 1;
         float directionChangeForce = 18f; // Boost when changing direction
         Vector2 nextMove;
+
+        // Rocket handling variables
+        Rocket heldRocket;
+        Rocket pilotedRocket;
+        Vector3 holdOffset;
+        Vector3 placeOffset;
+
+        // Physics and colliders
         Rigidbody2D rigidbody;
         CapsuleCollider2D physicsCollider;
         CircleCollider2D pickupCollider;
-        Rocket heldRocket;
-        Vector3 holdOffset;
-        Vector3 placeOffset;
 
         // Start is called before the first frame update
         void Start()
@@ -42,7 +57,7 @@ namespace MiniGameCollection.Games2025.Team04
             }
 
             holdOffset = -down * physicsCollider.size.y;
-            placeOffset = right * physicsCollider.size.x;
+            placeOffset = Vector2.up * physicsCollider.size.x;
         }
 
         // Update is called once per frame
@@ -53,15 +68,17 @@ namespace MiniGameCollection.Games2025.Team04
             {
                 float moveInput = ArcadeInput.Player2.AxisX;
                 nextMove = right * moveInput;
-                tryJump = ArcadeInput.Player2.Action1.Down;
-                tryInteract = ArcadeInput.Player2.Action2.Pressed;
+                if (ArcadeInput.Player2.Action1.Down) tryJump = true;
+                if (ArcadeInput.Player2.Action2.Down) tryInteract = true;
+                if (ArcadeInput.Player2.Action2.Released) releaseInteract = true;
             }
             else
             {
                 float moveInput = ArcadeInput.Player1.AxisX;
                 nextMove = right * moveInput;
-                tryJump = ArcadeInput.Player1.Action1.Down;
-                tryInteract = ArcadeInput.Player1.Action2.Pressed;
+                if (ArcadeInput.Player1.Action1.Down) tryJump = true;
+                if (ArcadeInput.Player1.Action2.Down) tryInteract = true;
+                if (ArcadeInput.Player1.Action2.Released) releaseInteract = true;
             }
 
             // Handle jump cooldown
@@ -73,34 +90,59 @@ namespace MiniGameCollection.Games2025.Team04
                     canJump = true;
                 }
             }
-
-            // Handle held rocket position
-            if (heldRocket != null)
-            {
-                heldRocket.moveToPosition = transform.position + holdOffset;
-            }
         }
 
         // FixedUpdate is called at a fixed interval - consistent physics
         void FixedUpdate()
         {
             Vector2 gravityForce = gravity * down;
-            Vector2 nextMoveForce = moveForce * nextMove;
+            Vector2 nextMoveForce = Vector2.zero;
 
-            // Apply extra force when changing direction
-            if (Mathf.Sign(rigidbody.velocity.y) != Mathf.Sign(nextMove.y))
+            if (pilotedRocket != null)
             {
-                nextMoveForce += directionChangeForce * nextMove;
+                pilotedRocket.rotationInput = nextMove.y;
             }
-
-            if (tryJump && canJump && Grounded())
+            else
             {
-                nextMoveForce += jumpForce * -down;
-                canJump = false;
-                jumpTimer = jumpCooldown;
+                nextMoveForce = moveForce * nextMove;
+                faceDirection = GetFaceDirection();
+
+                // Apply extra force when changing direction
+                if (Mathf.Sign(rigidbody.velocity.y) != Mathf.Sign(nextMove.y))
+                {
+                    nextMoveForce += directionChangeForce * nextMove;
+                }
+
+                if (tryJump && canJump && Grounded())
+                {
+                    nextMoveForce += jumpForce * -down;
+                    canJump = false;
+                    jumpTimer = jumpCooldown;
+                }
             }
 
             rigidbody.AddForce(gravityForce + nextMoveForce);
+
+            // Handle held rocket
+            if (releaseInteract && heldRocket != null)
+            {
+                // Fire rocket if ready, otherwise reset the timer to prepare to place
+                if (placeTimer <= 0)
+                {
+                    heldRocket.fired = true;
+                    pilotedRocket = heldRocket;
+                    heldRocket = null;
+                    readyToPlace = false;
+                    placeTimer = placeTime;
+                }
+                else
+                {
+                    readyToPlace = true;
+                    placeTimer = placeTime;
+                }
+            }
+
+            Vector2 heldRocketPosition = transform.position + holdOffset;
 
             // Handle interaction
             if (tryInteract)
@@ -108,12 +150,24 @@ namespace MiniGameCollection.Games2025.Team04
                 if (heldRocket == null)
                 {
                     TryPickup();
+                    placeTimer = placeTime;
                 }
-                else
+                else if (readyToPlace)
                 {
-                    TryPlace();
+                    heldRocketPosition = transform.position + placeOffset * faceDirection;
+                    placeTimer -= Time.fixedDeltaTime;
                 }
             }
+
+            if (heldRocket != null)
+            {
+                heldRocket.moveToPosition = heldRocketPosition;
+            }
+
+            // Reset input flags
+            tryJump = false;
+            tryInteract = false;
+            releaseInteract = false;
         }
 
         bool Grounded()
@@ -138,7 +192,7 @@ namespace MiniGameCollection.Games2025.Team04
             pickupCollider.OverlapCollider(new ContactFilter2D().NoFilter(), nearbyColliders);
             foreach (Collider2D collider in nearbyColliders)
             {
-                Debug.Log("Found collider: " + collider.name);
+                //Debug.Log("Found collider: " + collider.name);
                 Rocket rocket = collider.GetComponent<Rocket>();
                 if (rocket != null)
                 {
@@ -149,12 +203,14 @@ namespace MiniGameCollection.Games2025.Team04
             }
         }
 
-        void TryPlace()
+        int GetFaceDirection()
         {
-            Vector3 placePosition = transform.position + placeOffset;
-            heldRocket.moveToPosition = placePosition;
-            heldRocket.fired = true;
-            heldRocket = null;
+            int newfaceDirection = (int) Mathf.Sign(rigidbody.velocity.y);
+            if (Mathf.Abs(rigidbody.velocity.y) < 1f)
+            {
+                newfaceDirection = faceDirection;
+            }
+            return newfaceDirection;
         }
     }
 }
