@@ -12,15 +12,17 @@ namespace MiniGameCollection.Games2025.Team04
 
         public bool fired = false;
         float fireTimer = 0.3f;
+        float fuseTimer = 1f;
         float moveToSpeed = 4f;
         float maxDistanceFromMoveTo = 0.1f;
         float rocketForce = 10f;
-        float gravityForce = 7f;
+        float rocketTurnSlowRate = 0.03f;
+        float gravityForce = 3f;
         public Vector3 moveToPosition;
 
         public float rotationInput = 0f;
         float rotationSpeed = 3f;
-        float currentRotation = 0f;
+
 
         Rigidbody2D rigidbody;
         CircleCollider2D collider;
@@ -59,8 +61,25 @@ namespace MiniGameCollection.Games2025.Team04
                 }
                 else
                 {
+                    //Control rocket with rotation input
                     up = Quaternion.Euler(0f, 0f, rotationInput * rotationSpeed) * up;
+                    rigidbody.rotation = rigidbody.rotation + rotationInput * rotationSpeed;
+
+                    //Slow down rocket when turning
+                    if (rotationInput != 0f)
+                    {
+                        rigidbody.velocity *= 1 - rocketTurnSlowRate;
+                    }
                     rigidbody.AddForce(up * rocketForce);
+
+                    //Explode on impace after fuse timer
+                    fuseTimer -= Time.fixedDeltaTime;
+                    Collider2D[] hitColliders = new Collider2D[1];
+                    collider.OverlapCollider(new ContactFilter2D().NoFilter(), hitColliders);
+                    if (hitColliders[0] != null && fuseTimer <= 0)
+                    {
+                        Destroy(this.gameObject);
+                    }
                 }
             }
             else
