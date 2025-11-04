@@ -60,6 +60,7 @@ namespace MiniGameCollection.Games2025.Team04
                 else
                 {
                     up = Quaternion.Euler(0f, 0f, rotationInput * rotationSpeed) * up;
+                    rigidbody.rotation = rigidbody.rotation + rotationInput * rotationSpeed;
                     rigidbody.AddForce(up * rocketForce);
                 }
             }
