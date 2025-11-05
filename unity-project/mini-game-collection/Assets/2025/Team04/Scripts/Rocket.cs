@@ -8,14 +8,14 @@ namespace MiniGameCollection.Games2025.Team04
     public class Rocket : MiniGameBehaviour
     {
         public bool player2;
-        Vector2 up = Vector2.left;
+        Vector2 up = Vector2.right;
 
         public bool fired = false;
-        float fireTimer = 0.3f;
+        float fireTimer = 0.1f;
         float fuseTimer = 1f;
         float moveToSpeed = 4f;
         float maxDistanceFromMoveTo = 0.1f;
-        float rocketForce = 10f;
+        float rocketForce = 15f;
         float rocketTurnSlowRate = 0.03f;
         float gravityForce = 3f;
         public Vector3 moveToPosition;
@@ -33,7 +33,7 @@ namespace MiniGameCollection.Games2025.Team04
         {
             if (player2)
             {
-                up = Vector2.right;
+                up = Vector2.left;
             }
             rigidbody = GetComponent<Rigidbody2D>();
             collider = GetComponent<CircleCollider2D>();
@@ -62,8 +62,13 @@ namespace MiniGameCollection.Games2025.Team04
                 else
                 {
                     //Control rocket with rotation input
-                    up = Quaternion.Euler(0f, 0f, rotationInput * rotationSpeed) * up;
-                    rigidbody.rotation = rigidbody.rotation + rotationInput * rotationSpeed;
+                    float appliedRoatation = rotationInput * rotationSpeed;
+                    if (player2)
+                    {
+                        appliedRoatation = -appliedRoatation;
+                    }
+                    up = Quaternion.Euler(0f, 0f, appliedRoatation) * up;
+                    rigidbody.rotation = rigidbody.rotation + appliedRoatation;
 
                     //Slow down rocket when turning
                     if (rotationInput != 0f)

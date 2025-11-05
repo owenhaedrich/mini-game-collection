@@ -9,15 +9,15 @@ namespace MiniGameCollection.Games2025.Team04
     {
         // Player specific variables
         public bool player2;
-        Vector2 down = Vector2.right;
-        Vector2 right = Vector2.up;
+        Vector2 down = Vector2.left;
+        Vector2 right = Vector2.down;
 
         // Input variables
         bool tryJump = false;
         bool tryInteract = false;
         bool releaseInteract = false;
         bool readyToPlace = false;
-        float placeTime = 0.5f;
+        float placeTime = 0.3f;
         float placeTimer = 0f;
 
         // Movement variables
@@ -52,8 +52,8 @@ namespace MiniGameCollection.Games2025.Team04
             pickupCollider = GetComponent<CircleCollider2D>();
             if (player2)
             {
-                down = Vector2.left;
-                right = Vector2.down;
+                down = Vector2.right;
+                right = Vector2.up;
             }
 
             holdOffset = -down * physicsCollider.size.y;
