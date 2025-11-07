@@ -837,8 +837,8 @@ Transform:
   m_GameObject: {fileID: 414197761}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.3654003, y: 5.4884934, z: 0.15274397}
-  m_LocalScale: {x: 21.383228, y: 0.83485925, z: 1}
+  m_LocalPosition: {x: 6.4455, y: 15.24, z: 0.15274397}
+  m_LocalScale: {x: 11.614122, y: 0.83485925, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2063786236}
@@ -3645,7 +3645,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1367714688}
-  - component: {fileID: 1367714687}
+  - component: {fileID: 1367714690}
   m_Layer: 0
   m_Name: AsteroidSpawner
   m_TagString: Untagged
@@ -3653,7 +3653,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1367714687
+--- !u!4 &1367714688
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1367714686}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.006, y: -0.001, z: -7.498526}
+  m_LocalScale: {x: 1, y: 1, z: 0}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1367714690
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3665,41 +3680,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 782683b761640a24ebd4e303ed6f1a92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <MiniGameManager>k__BackingField: {fileID: 0}
   asteroidPrefab: {fileID: 2003131342263958546, guid: 03855fb0c05cd4f4e92d9d98bd9f2da5,
     type: 3}
-  mode: 0
-  area: {fileID: 0}
-  edgeStyle: 1
-  edgeInset: 1
-  bandThickness: 4
-  minSpawnInterval: 2
-  maxSpawnInterval: 5
-  minScale: 0.5
-  maxScale: 1.6
-  minSpeed: 1
-  maxSpeed: 2
-  maxSideDrift: 0
-  useKinematic: 1
-  colliderIsTrigger: 1
-  xPaddingViewport: 0.379
-  verticalSpawnOffset: 0.75
-  minAngularVelocity: -90
-  maxAngularVelocity: 90
---- !u!4 &1367714688
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1367714686}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.7, y: 11.14, z: -7.498526}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  topLine: {fileID: 414197762}
+  bottomLine: {fileID: 1584888340}
+  halfWidth: 5
+  minInterval: 1.54
+  maxInterval: 3.93
+  minSpeed: 0.81
+  maxSpeed: 2.62
+  minScale: 0.36
+  maxScale: 1.3
+  lifetime: 20
 --- !u!4 &1399588277 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7708632136986951246, guid: d6fd9bd6e3618004999b274d0509d63b,
@@ -3718,9 +3711,10 @@ GameObject:
   - component: {fileID: 1459647642}
   - component: {fileID: 1459647641}
   - component: {fileID: 1459647640}
+  - component: {fileID: 1459647644}
   m_Layer: 0
   m_Name: Pixel Perfect Camera
-  m_TagString: MainCamera
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3859,6 +3853,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1459647644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1459647639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c22ddc4515c27864a8997d76b0d3a85b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1482707280
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4329,8 +4335,8 @@ Transform:
   m_GameObject: {fileID: 1584888339}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.3654003, y: -12.5634365, z: 0.15274397}
-  m_LocalScale: {x: 21.383228, y: 0.83485925, z: 1}
+  m_LocalPosition: {x: 6.2453, y: -18.47, z: 0.15274397}
+  m_LocalScale: {x: 11.69572, y: 0.83485925, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2063786236}
