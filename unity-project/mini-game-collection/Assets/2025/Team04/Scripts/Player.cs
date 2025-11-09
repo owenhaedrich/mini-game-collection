@@ -21,16 +21,16 @@ namespace MiniGameCollection.Games2025.Team04
         float placeTimer = 0f;
 
         // Movement variables
-        float gravity = 9.8f;
-        float moveForce = 7f;
-        float jumpForce = 200f;
-        float jumpCooldown = 0.2f;
+        public float gravity = 9.8f;
+        public float moveForce = 7f;
+        public float jumpForce = 200f;
+        public float jumpCooldown = 0.2f;
         float jumpTimer = 0f;
-        float landingCooldown = 0.01f;
+        public float landingCooldown = 0.01f;
         float landingTimer = 0f;
         bool canJump = true;
         int faceDirection = 1;
-        float directionChangeForce = 18f; // Boost when changing direction
+        public float directionChangeForce = 18f; // Boost when changing direction
         Vector2 nextMove;
 
         // Rocket handling variables

@@ -11,17 +11,18 @@ namespace MiniGameCollection.Games2025.Team04
         Vector2 up = Vector2.right;
 
         public bool fired = false;
-        float fireTimer = 0.1f;
-        float fuseTimer = 1f;
-        float moveToSpeed = 4f;
-        float maxDistanceFromMoveTo = 0.1f;
-        float rocketForce = 15f;
-        float rocketTurnSlowRate = 0.03f;
-        float gravityForce = 3f;
         public Vector3 moveToPosition;
-
         public float rotationInput = 0f;
-        float rotationSpeed = 3f;
+
+        [Header("Use These to Tune Rocket")]
+        public float fireTimer = 0.1f;
+        float fuseTimer = 1f;
+        float placeSpeed = 4f;
+        float maxDistanceFromMoveTo = 0.1f;
+        public float rocketForce = 15f;
+        public float turnSpeed = 3f;
+        public float rocketTurnSlowRate = 0.03f;
+        public float gravityForce = 3f;
 
 
         Rigidbody2D rigidbody;
@@ -62,7 +63,7 @@ namespace MiniGameCollection.Games2025.Team04
                 else
                 {
                     //Control rocket with rotation input
-                    float appliedRoatation = rotationInput * rotationSpeed;
+                    float appliedRoatation = rotationInput * turnSpeed;
                     if (player2)
                     {
                         appliedRoatation = -appliedRoatation;
@@ -89,7 +90,7 @@ namespace MiniGameCollection.Games2025.Team04
             }
             else
             {
-                rigidbody.transform.position = MoveToController(moveToPosition, moveToSpeed);
+                rigidbody.transform.position = MoveToController(moveToPosition, placeSpeed);
             }
         }
 

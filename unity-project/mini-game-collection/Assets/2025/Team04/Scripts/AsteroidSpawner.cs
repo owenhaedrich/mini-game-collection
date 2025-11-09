@@ -13,18 +13,21 @@ namespace MiniGameCollection.Games2025.Team04
         public float halfWidth = 8f;// horizontal spawn range from center
 
         // spawn timing
+        [Header("Spawn Timing")]
         public float minInterval = 0.6f;
         public float maxInterval = 1.4f;
         float timer = 0f;
         float nextSpawnTime = 1f;
 
         // asteroid properties
+        [Header("Spawn Timing")]
         public float minSpeed = 2f;
         public float maxSpeed = 5f;
         public float minScale = 0.8f;
         public float maxScale = 1.6f;
 
         // asteroid lifetime
+        [Header("Asteroid Lifetime")]
         public float lifetime = 12f;
 
         void Start()
