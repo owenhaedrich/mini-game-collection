@@ -20,7 +20,7 @@ namespace MiniGameCollection.Games2025.Team04
         float nextSpawnTime = 1f;
 
         // asteroid properties
-        [Header("Spawn Timing")]
+        [Header("Asteroid Properties")]
         public float minSpeed = 2f;
         public float maxSpeed = 5f;
         public float minScale = 0.8f;
