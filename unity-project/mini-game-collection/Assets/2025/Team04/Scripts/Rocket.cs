@@ -85,6 +85,22 @@ namespace MiniGameCollection.Games2025.Team04
                     if (hitColliders[0] != null && fuseTimer <= 0)
                     {
                         Destroy(this.gameObject);
+
+                        //Add score if you hit a player
+                        Player potentialPlayer = hitColliders[0].gameObject.GetComponent<Player>();
+                        if (potentialPlayer != null)
+                        {
+                            ScoreManager scoreManager = FindFirstObjectByType<ScoreManager>();
+                            if (scoreManager == null) Debug.LogError("No score manager found.");
+                                if (potentialPlayer.player2)
+                                {
+                                    scoreManager.AddScore(2, 1);
+                                }
+                                else
+                                {
+                                    scoreManager.AddScore(2, 1);
+                                }
+                        }
                     }
                 }
             }
