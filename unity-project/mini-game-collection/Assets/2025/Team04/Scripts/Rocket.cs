@@ -70,6 +70,7 @@ namespace MiniGameCollection.Games2025.Team04
                     up = Quaternion.Euler(0f, 0f, appliedRoatation) * up;
                     rigidbody.rotation = rigidbody.rotation + appliedRoatation;
 
+
                     //Slow down rocket when turning
                     if (rotationInput != 0f)
                     {
