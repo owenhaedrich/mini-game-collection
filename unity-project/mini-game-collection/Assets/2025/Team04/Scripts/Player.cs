@@ -8,86 +8,100 @@ namespace MiniGameCollection.Games2025.Team04
     public class Player : MiniGameBehaviour
     {
         // Player specific variables
-        public bool player2;
-        Vector2 down = Vector2.left;
-        Vector2 right = Vector2.down;
+        public bool Player2;
+        public CircleCollider2D PlanetCenter;
+        Vector2 Down = Vector2.left;
+        Vector2 Right = Vector2.down;
+        bool Started = false;
 
         // Input variables
-        bool tryJump = false;
-        bool tryInteract = false;
-        bool releaseInteract = false;
-        bool readyToPlace = false;
-        float placeTime = 0.3f;
-        float placeTimer = 0f;
+        bool TryJump = false;
+        bool TryInteract = false;
+        bool ReleaseInteract = false;
+        bool ReadyToPlace = false;
+        float PlaceTime = 0.3f;
+        float PlaceTimer = 0f;
 
         // Movement variables
-        public float gravity = 9.8f;
-        public float moveForce = 7f;
-        public float jumpForce = 200f;
-        public float jumpCooldown = 0.2f;
-        float jumpTimer = 0f;
-        public float landingCooldown = 0.01f;
-        float landingTimer = 0f;
-        bool canJump = true;
-        int faceDirection = 1;
-        public float directionChangeForce = 18f; // Boost when changing direction
-        Vector2 nextMove;
+        public float Gravity = 9.8f;
+        public float MoveForce = 7f;
+        public float JumpForce = 200f;
+        public float JumpCooldown = 0.2f;
+        float JumpTimer = 0f;
+        public float LandingCooldown = 0.01f;
+        float LandingTimer = 0f;
+        bool CanJump = true;
+        int FaceDirection = 1;
+        public float DirectionChangeForce = 18f; // Boost when changing direction
+        Vector2 NextMove;
 
         // Rocket handling variables
-        Rocket heldRocket;
-        Rocket pilotedRocket;
-        Vector3 holdOffset;
-        Vector3 placeOffset;
+        Rocket HeldRocket;
+        Rocket PilotedRocket;
+        Vector3 HoldOffset;
+        Vector3 PlaceOffset;
 
         // Physics and colliders
-        Rigidbody2D rigidbody;
-        CapsuleCollider2D physicsCollider;
-        CircleCollider2D pickupCollider;
+        Rigidbody2D Rigidbody;
+        CapsuleCollider2D PhysicsCollider;
+        CircleCollider2D PickupCollider;
 
         // Start is called before the first frame update
         void Start()
         {
-            rigidbody = GetComponent<Rigidbody2D>();
-            physicsCollider = GetComponent<CapsuleCollider2D>();
-            pickupCollider = GetComponent<CircleCollider2D>();
-            if (player2)
+            Rigidbody = GetComponent<Rigidbody2D>();
+            PhysicsCollider = GetComponent<CapsuleCollider2D>();
+            PickupCollider = GetComponent<CircleCollider2D>();
+            if (Player2)
             {
-                down = Vector2.right;
-                right = Vector2.up;
+                Down = Vector2.right;
+                Right = Vector2.up;
             }
 
-            holdOffset = -down * physicsCollider.size.y;
-            placeOffset = Vector2.up * physicsCollider.size.x;
+            HoldOffset = -Down * PhysicsCollider.size.y;
+            PlaceOffset = Vector2.up * PhysicsCollider.size.x;
+        }
+
+        protected override void OnGameStart()
+        {
+            Started = true;
+        }
+
+        protected override void OnGameEnd()
+        {
+            Started = false;
         }
 
         // Update is called once per frame
         void Update()
         {
+            if (!Started) return;
+
             // Handle input
-            if (player2)
+            if (Player2)
             {
                 float moveInput = ArcadeInput.Player2.AxisX;
-                nextMove = right * moveInput;
-                if (ArcadeInput.Player2.Action1.Down) tryJump = true;
-                if (ArcadeInput.Player2.Action2.Down) tryInteract = true;
-                if (ArcadeInput.Player2.Action2.Released) releaseInteract = true;
+                NextMove = Right * moveInput;
+                if (ArcadeInput.Player2.Action1.Down) TryJump = true;
+                if (ArcadeInput.Player2.Action2.Down) TryInteract = true;
+                if (ArcadeInput.Player2.Action2.Released) ReleaseInteract = true;
             }
             else
             {
                 float moveInput = ArcadeInput.Player1.AxisX;
-                nextMove = right * moveInput;
-                if (ArcadeInput.Player1.Action1.Down) tryJump = true;
-                if (ArcadeInput.Player1.Action2.Down) tryInteract = true;
-                if (ArcadeInput.Player1.Action2.Released) releaseInteract = true;
+                NextMove = Right * moveInput;
+                if (ArcadeInput.Player1.Action1.Down) TryJump = true;
+                if (ArcadeInput.Player1.Action2.Down) TryInteract = true;
+                if (ArcadeInput.Player1.Action2.Released) ReleaseInteract = true;
             }
 
             // Handle jump cooldown
-            if (!canJump)
+            if (!CanJump)
             {
-                jumpTimer -= Time.deltaTime;
-                if (jumpTimer <= 0f)
+                JumpTimer -= Time.deltaTime;
+                if (JumpTimer <= 0f)
                 {
-                    canJump = true;
+                    CanJump = true;
                 }
             }
         }
@@ -95,93 +109,98 @@ namespace MiniGameCollection.Games2025.Team04
         // FixedUpdate is called at a fixed interval - consistent physics
         void FixedUpdate()
         {
-            Vector2 gravityForce = gravity * down;
+            Down = (PlanetCenter.bounds.center - transform.position).normalized;
+            transform.rotation = Quaternion.FromToRotation(Vector2.left, Down) * Quaternion.Euler(0, 0, -90);
+
+            Vector2 gravityForce = Gravity * Down;
             Vector2 nextMoveForce = Vector2.zero;
 
-            if (pilotedRocket != null)
+            if (PilotedRocket != null)
             {
-                pilotedRocket.rotationInput = nextMove.y;
+                PilotedRocket.RotationInput = NextMove.y;
             }
             else
             {
-                nextMoveForce = moveForce * nextMove;
-                faceDirection = GetFaceDirection();
+                nextMoveForce = MoveForce * NextMove;
+                FaceDirection = GetFaceDirection();
 
                 // Apply extra force when changing direction
-                if (Mathf.Sign(rigidbody.velocity.y) != Mathf.Sign(nextMove.y))
+                if (Mathf.Sign(Rigidbody.velocity.y) != Mathf.Sign(NextMove.y))
                 {
-                    nextMoveForce += directionChangeForce * nextMove;
+                    nextMoveForce += DirectionChangeForce * NextMove;
                 }
 
-                if (tryJump && canJump && Grounded())
+                if (TryJump && CanJump && Grounded())
                 {
-                    nextMoveForce += jumpForce * -down;
-                    canJump = false;
-                    jumpTimer = jumpCooldown;
+                    nextMoveForce += JumpForce * -Down;
+                    CanJump = false;
+                    JumpTimer = JumpCooldown;
                 }
             }
 
-            rigidbody.AddForce(gravityForce + nextMoveForce);
+            Rigidbody.AddForce(gravityForce + nextMoveForce);
 
             // Handle held rocket
-            if (releaseInteract && heldRocket != null)
+            if (ReleaseInteract && HeldRocket != null)
             {
+                HeldRocket.transform.rotation = transform.rotation;
+
                 // Fire rocket if ready, otherwise reset the timer to prepare to place
-                if (placeTimer <= 0)
+                if (PlaceTimer <= 0)
                 {
-                    heldRocket.fired = true;
-                    pilotedRocket = heldRocket;
-                    heldRocket = null;
-                    readyToPlace = false;
-                    placeTimer = placeTime;
+                    HeldRocket.Fired = true;
+                    PilotedRocket = HeldRocket;
+                    HeldRocket = null;
+                    ReadyToPlace = false;
+                    PlaceTimer = PlaceTime;
                 }
                 else
                 {
-                    readyToPlace = true;
-                    placeTimer = placeTime;
+                    ReadyToPlace = true;
+                    PlaceTimer = PlaceTime;
                 }
             }
 
-            Vector2 heldRocketPosition = transform.position + holdOffset;
+            Vector2 heldRocketPosition = transform.position + HoldOffset;
 
             // Handle interaction
-            if (tryInteract)
+            if (TryInteract)
             {
-                if (heldRocket == null)
+                if (HeldRocket == null)
                 {
                     TryPickup();
-                    placeTimer = placeTime;
+                    PlaceTimer = PlaceTime;
                 }
-                else if (readyToPlace)
+                else if (ReadyToPlace)
                 {
-                    heldRocketPosition = transform.position + placeOffset * faceDirection;
-                    placeTimer -= Time.fixedDeltaTime;
+                    heldRocketPosition = transform.position + PlaceOffset * FaceDirection;
+                    PlaceTimer -= Time.fixedDeltaTime;
                 }
             }
 
-            if (heldRocket != null)
+            if (HeldRocket != null)
             {
-                heldRocket.moveToPosition = heldRocketPosition;
+                HeldRocket.MoveToPosition = heldRocketPosition;
             }
 
             // Reset input flags
-            tryJump = false;
-            tryInteract = false;
-            releaseInteract = false;
+            TryJump = false;
+            TryInteract = false;
+            ReleaseInteract = false;
         }
 
         bool Grounded()
         {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, down, physicsCollider.size.y + 0.01f, LayerMask.GetMask("Ground"));
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, Down, PhysicsCollider.size.y + 0.01f, LayerMask.GetMask("Ground"));
             if (hit.collider != null)
             {
-                landingTimer -= Time.fixedDeltaTime;
+                LandingTimer -= Time.fixedDeltaTime;
             }
-            bool landed = landingTimer <= 0f && hit.collider != null;
+            bool landed = LandingTimer <= 0f && hit.collider != null;
             if (landed)
             {
-                landingTimer = landingCooldown;
-                rigidbody.velocity = new Vector2(0f, rigidbody.velocity.y);
+                LandingTimer = LandingCooldown;
+                Rigidbody.velocity = new Vector2(0f, Rigidbody.velocity.y);
             }
             return landed;
         }
@@ -189,15 +208,15 @@ namespace MiniGameCollection.Games2025.Team04
         void TryPickup()
         {
             List<Collider2D> nearbyColliders = new List<Collider2D>();
-            pickupCollider.OverlapCollider(new ContactFilter2D().NoFilter(), nearbyColliders);
+            PickupCollider.OverlapCollider(new ContactFilter2D().NoFilter(), nearbyColliders);
             foreach (Collider2D collider in nearbyColliders)
             {
                 //Debug.Log("Found collider: " + collider.name);
                 Rocket rocket = collider.GetComponent<Rocket>();
                 if (rocket != null)
                 {
-                    heldRocket = rocket;
-                    rocket.moveToPosition = transform.position + holdOffset;
+                    HeldRocket = rocket;
+                    rocket.MoveToPosition = transform.position + HoldOffset;
                     break;
                 }
             }
@@ -205,10 +224,10 @@ namespace MiniGameCollection.Games2025.Team04
 
         int GetFaceDirection()
         {
-            int newfaceDirection = (int) Mathf.Sign(rigidbody.velocity.y);
-            if (Mathf.Abs(rigidbody.velocity.y) < 1f)
+            int newfaceDirection = (int) Mathf.Sign(Rigidbody.velocity.y);
+            if (Mathf.Abs(Rigidbody.velocity.y) < 1f)
             {
-                newfaceDirection = faceDirection;
+                newfaceDirection = FaceDirection;
             }
             return newfaceDirection;
         }

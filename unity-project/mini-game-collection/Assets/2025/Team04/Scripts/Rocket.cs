@@ -7,82 +7,76 @@ namespace MiniGameCollection.Games2025.Team04
 {
     public class Rocket : MiniGameBehaviour
     {
-        public bool player2;
-        Vector2 up = Vector2.right;
+        public bool Player2;
+        Vector2 Up = Vector2.right;
 
-        public bool fired = false;
-        public Vector3 moveToPosition;
-        public float rotationInput = 0f;
+        public bool Fired = false;
+        public Vector3 MoveToPosition;
+        public float RotationInput = 0f;
 
         [Header("Use These to Tune Rocket")]
-        public float fireTimer = 0.1f;
-        float fuseTimer = 1f;
-        float placeSpeed = 4f;
-        float maxDistanceFromMoveTo = 0.1f;
-        public float rocketForce = 15f;
-        public float turnSpeed = 3f;
-        public float rocketTurnSlowRate = 0.03f;
-        public float gravityForce = 3f;
+        public float FireTimer = 0.1f;
+        float FuseTimer = 1f;
+        float PlaceSpeed = 4f;
+        float MaxDistanceFromMoveTo = 0.1f;
+        public float RocketForce = 15f;
+        public float TurnSpeed = 3f;
+        public float RocketTurnSlowRate = 0.03f;
+        public float GravityForce = 3f;
 
 
-        Rigidbody2D rigidbody;
-        CircleCollider2D collider;
-        Transform centerLine;
+        Rigidbody2D Rigidbody;
+        CircleCollider2D Collider;
+        Transform CenterLine;
 
         // Start is called before the first frame update
         void Start()
         {
-            if (player2)
+            if (Player2)
             {
-                up = Vector2.left;
+                Up = Vector2.left;
             }
-            rigidbody = GetComponent<Rigidbody2D>();
-            collider = GetComponent<CircleCollider2D>();
-            centerLine = GameObject.Find("CenterLine").transform;
-            moveToPosition = transform.position;
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
+            Rigidbody = GetComponent<Rigidbody2D>();
+            Collider = GetComponent<CircleCollider2D>();
+            CenterLine = GameObject.Find("CenterLine").transform;
+            MoveToPosition = transform.position;
         }
 
         private void FixedUpdate()
         {
-            if (fired)
+            if (Fired)
             {
-                collider.isTrigger = false;
-                float distanceFromCenter = centerLine.position.x - transform.position.x;
-                Vector2 appliedGravity = Vector2.left * Mathf.Sign(distanceFromCenter) * gravityForce;
-                rigidbody.AddForce(appliedGravity);
-                if (fireTimer > 0f)
+                Collider.isTrigger = false;
+                float distanceFromCenter = CenterLine.position.x - transform.position.x;
+                Vector2 appliedGravity = Vector2.left * Mathf.Sign(distanceFromCenter) * GravityForce;
+                Rigidbody.AddForce(appliedGravity);
+                if (FireTimer > 0f)
                 {
-                    fireTimer -= Time.fixedDeltaTime;
+                    FireTimer -= Time.fixedDeltaTime;
                 }
                 else
                 {
                     //Control rocket with rotation input
-                    float appliedRoatation = rotationInput * turnSpeed;
-                    if (player2)
+                    float appliedRoatation = RotationInput * TurnSpeed;
+                    if (Player2)
                     {
                         appliedRoatation = -appliedRoatation;
                     }
-                    up = Quaternion.Euler(0f, 0f, appliedRoatation) * up;
-                    rigidbody.rotation = rigidbody.rotation + appliedRoatation;
+                    Up = Quaternion.Euler(0f, 0f, appliedRoatation) * Up;
+                    Rigidbody.rotation = Rigidbody.rotation + appliedRoatation;
 
                     //Slow down rocket when turning
-                    if (rotationInput != 0f)
+                    if (RotationInput != 0f)
                     {
-                        rigidbody.velocity *= 1 - rocketTurnSlowRate;
+                        Rigidbody.velocity *= 1 - RocketTurnSlowRate;
                     }
-                    rigidbody.AddForce(up * rocketForce);
+                    Rigidbody.AddForce(Up * RocketForce);
 
                     //Explode on impace after fuse timer
-                    fuseTimer -= Time.fixedDeltaTime;
+                    FuseTimer -= Time.fixedDeltaTime;
                     Collider2D[] hitColliders = new Collider2D[1];
-                    collider.OverlapCollider(new ContactFilter2D().NoFilter(), hitColliders);
-                    if (hitColliders[0] != null && fuseTimer <= 0)
+                    Collider.OverlapCollider(new ContactFilter2D().NoFilter(), hitColliders);
+                    if (hitColliders[0] != null && FuseTimer <= 0)
                     {
                         Destroy(this.gameObject);
 
@@ -92,13 +86,13 @@ namespace MiniGameCollection.Games2025.Team04
                         {
                             ScoreManager scoreManager = FindFirstObjectByType<ScoreManager>();
                             if (scoreManager == null) Debug.LogError("No score manager found.");
-                                if (potentialPlayer.player2)
+                                if (potentialPlayer.Player2)
                                 {
                                     scoreManager.AddScore(2, 1);
                                 }
                                 else
                                 {
-                                    scoreManager.AddScore(2, 1);
+                                    scoreManager.AddScore(1, 1);
                                 }
                         }
                     }
@@ -106,17 +100,17 @@ namespace MiniGameCollection.Games2025.Team04
             }
             else
             {
-                rigidbody.transform.position = MoveToController(moveToPosition, placeSpeed);
+                Rigidbody.transform.position = MoveToController(MoveToPosition, PlaceSpeed);
             }
         }
 
         Vector3 MoveToController(Vector3 targetPosition, float desiredSpeed)
         {
-            Vector3 nextPosition = Vector3.MoveTowards(rigidbody.transform.position, targetPosition, desiredSpeed * Time.fixedDeltaTime);
+            Vector3 nextPosition = Vector3.MoveTowards(Rigidbody.transform.position, targetPosition, desiredSpeed * Time.fixedDeltaTime);
             float distanceToTarget = Vector3.Distance(nextPosition, targetPosition);
-            if (distanceToTarget < maxDistanceFromMoveTo)
+            if (distanceToTarget < MaxDistanceFromMoveTo)
             {
-                nextPosition = Vector3.MoveTowards(rigidbody.transform.position, targetPosition, distanceToTarget);
+                nextPosition = Vector3.MoveTowards(Rigidbody.transform.position, targetPosition, distanceToTarget);
             }
 
             return nextPosition;

@@ -4,12 +4,12 @@ namespace MiniGameCollection.Games2025.Team04
 {
     public class Asteroid : MiniGameBehaviour
     {
-        public Vector2 direction = Vector2.down;// default direction
-        public float speed = 3f;// default speed
-        public float rotationSpeed = 0f;// rotation speed in degrees per second
-        public float lifetime = 12f;// default lifetime in seconds
+        public Vector2 Direction = Vector2.down;// default direction
+        public float Speed = 3f;// default speed
+        public float RotationSpeed = 0f;// rotation speed in degrees per second
+        public float Lifetime = 12f;// default lifetime in seconds
 
-        float t;
+        float Timer;
 
         void Awake()
         {
@@ -25,13 +25,13 @@ namespace MiniGameCollection.Games2025.Team04
 
         void Update()
         {
-            transform.position += (Vector3)(direction.normalized * speed * Time.deltaTime); // move asteroid
+            transform.position += (Vector3)(Direction.normalized * Speed * Time.deltaTime); // move asteroid
 
-            if (rotationSpeed != 0f)// if rotation speed set
-                transform.Rotate(0f, 0f, rotationSpeed * Time.deltaTime);// rotate asteroid
+            if (RotationSpeed != 0f)// if rotation speed set
+                transform.Rotate(0f, 0f, RotationSpeed * Time.deltaTime);// rotate asteroid
 
-            t += Time.deltaTime;// update lifetime timer
-            if (t >= lifetime) Destroy(gameObject);// destroy after lifetime
+            Timer += Time.deltaTime;// update lifetime timer
+            if (Timer >= Lifetime) Destroy(gameObject);// destroy after lifetime
         }
     }
 }
