@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5248713042715067943}
   - component: {fileID: 3987056220628842308}
   m_Layer: 0
-  m_Name: Asteroid
+  m_Name: 2025-team04-asteroid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
