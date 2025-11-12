@@ -31,8 +31,8 @@ namespace MiniGameCollection.Games2025.Team04
         {
             switch (playerID)
             {
-                case 1: P1Score += points; break;
-                case 2: P2Score += points; break;
+                case 2: P1Score += points; break;
+                case 1: P2Score += points; break;
                 default: throw new NotImplementedException();
             }
             UpdateScores();
