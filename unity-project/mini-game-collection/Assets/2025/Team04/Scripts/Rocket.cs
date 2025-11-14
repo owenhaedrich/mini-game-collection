@@ -75,12 +75,19 @@ namespace MiniGameCollection.Games2025.Team04
                     //Explode on impace after fuse timer
                     FuseTimer -= Time.fixedDeltaTime;
                     Collider2D[] hitColliders = new Collider2D[1];
-                    ContactFilter2D noTriggers = new ContactFilter2D();
-                    noTriggers.useTriggers = false;
-                    Collider.OverlapCollider(noTriggers, hitColliders);
+                    Collider.OverlapCollider(new ContactFilter2D().NoFilter(), hitColliders);
                     if (hitColliders[0] != null && FuseTimer <= 0)
                     {
-                        Destroy(this.gameObject);
+                        //Add score if you hit a player
+                        Rocket potentialRocket = hitColliders[0].gameObject.GetComponent<Rocket>();
+                        if (potentialRocket != null)
+                        {
+                            if (potentialRocket.Fired) Destroy(this.gameObject);
+                        }
+                        else
+                        {
+                            Destroy(this.gameObject);
+                        }
 
                         //Add score if you hit a player
                         Player potentialPlayer = hitColliders[0].gameObject.GetComponent<Player>();
