@@ -78,7 +78,16 @@ namespace MiniGameCollection.Games2025.Team04
                     Collider.OverlapCollider(new ContactFilter2D().NoFilter(), hitColliders);
                     if (hitColliders[0] != null && FuseTimer <= 0)
                     {
-                        Destroy(this.gameObject);
+                        //Add score if you hit a player
+                        Rocket potentialRocket = hitColliders[0].gameObject.GetComponent<Rocket>();
+                        if (potentialRocket != null)
+                        {
+                            if (potentialRocket.Fired) Destroy(this.gameObject);
+                        }
+                        else
+                        {
+                            Destroy(this.gameObject);
+                        }
 
                         //Add score if you hit a player
                         Player potentialPlayer = hitColliders[0].gameObject.GetComponent<Player>();
@@ -86,14 +95,14 @@ namespace MiniGameCollection.Games2025.Team04
                         {
                             ScoreManager scoreManager = FindFirstObjectByType<ScoreManager>();
                             if (scoreManager == null) Debug.LogError("No score manager found.");
-                                if (potentialPlayer.Player2)
-                                {
-                                    scoreManager.AddScore(2, 1);
-                                }
-                                else
-                                {
-                                    scoreManager.AddScore(1, 1);
-                                }
+                            if (potentialPlayer.Player2)
+                            {
+                                scoreManager.AddScore(2, 1);
+                            }
+                            else
+                            {
+                                scoreManager.AddScore(1, 1);
+                            }
                         }
                     }
                 }

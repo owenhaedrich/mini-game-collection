@@ -75,7 +75,10 @@ namespace MiniGameCollection.Games2025.Team04
         // Update is called once per frame
         void Update()
         {
-            if (!Started) return;
+            if (!Started)
+            {
+                Rigidbody.velocity *= 0.1f;
+            }
 
             // Handle input
             if (Player2)
@@ -224,7 +227,7 @@ namespace MiniGameCollection.Games2025.Team04
 
         int GetFaceDirection()
         {
-            int newfaceDirection = (int) Mathf.Sign(Rigidbody.velocity.y);
+            int newfaceDirection = (int)Mathf.Sign(Rigidbody.velocity.y);
             if (Mathf.Abs(Rigidbody.velocity.y) < 1f)
             {
                 newfaceDirection = FaceDirection;
