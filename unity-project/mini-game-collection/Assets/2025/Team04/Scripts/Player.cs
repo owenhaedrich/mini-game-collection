@@ -77,7 +77,7 @@ namespace MiniGameCollection.Games2025.Team04
         {
             if (!Started)
             {
-                Rigidbody.velocity = Vector2.zero;
+                Rigidbody.velocity *= 0.1f;
             }
 
             // Handle input
@@ -227,7 +227,7 @@ namespace MiniGameCollection.Games2025.Team04
 
         int GetFaceDirection()
         {
-            int newfaceDirection = (int) Mathf.Sign(Rigidbody.velocity.y);
+            int newfaceDirection = (int)Mathf.Sign(Rigidbody.velocity.y);
             if (Mathf.Abs(Rigidbody.velocity.y) < 1f)
             {
                 newfaceDirection = FaceDirection;

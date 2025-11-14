@@ -95,14 +95,14 @@ namespace MiniGameCollection.Games2025.Team04
                         {
                             ScoreManager scoreManager = FindFirstObjectByType<ScoreManager>();
                             if (scoreManager == null) Debug.LogError("No score manager found.");
-                                if (potentialPlayer.Player2)
-                                {
-                                    scoreManager.AddScore(2, 1);
-                                }
-                                else
-                                {
-                                    scoreManager.AddScore(1, 1);
-                                }
+                            if (potentialPlayer.Player2)
+                            {
+                                scoreManager.AddScore(2, 1);
+                            }
+                            else
+                            {
+                                scoreManager.AddScore(1, 1);
+                            }
                         }
                     }
                 }
