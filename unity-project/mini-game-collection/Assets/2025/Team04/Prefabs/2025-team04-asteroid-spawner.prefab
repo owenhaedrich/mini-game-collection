@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8659569201360177304}
   - component: {fileID: 3272285906603619009}
   m_Layer: 0
-  m_Name: 2025-Team04-AsteroidSpawner
+  m_Name: 2025-team04-asteroid-spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
