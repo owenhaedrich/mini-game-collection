@@ -75,7 +75,10 @@ namespace MiniGameCollection.Games2025.Team04
         // Update is called once per frame
         void Update()
         {
-            if (!Started) return;
+            if (!Started)
+            {
+                Rigidbody.velocity = Vector2.zero;
+            }
 
             // Handle input
             if (Player2)
