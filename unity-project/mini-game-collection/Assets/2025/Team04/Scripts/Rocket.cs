@@ -75,7 +75,9 @@ namespace MiniGameCollection.Games2025.Team04
                     //Explode on impace after fuse timer
                     FuseTimer -= Time.fixedDeltaTime;
                     Collider2D[] hitColliders = new Collider2D[1];
-                    Collider.OverlapCollider(new ContactFilter2D().NoFilter(), hitColliders);
+                    ContactFilter2D noTriggers = new ContactFilter2D();
+                    noTriggers.useTriggers = false;
+                    Collider.OverlapCollider(noTriggers, hitColliders);
                     if (hitColliders[0] != null && FuseTimer <= 0)
                     {
                         Destroy(this.gameObject);
