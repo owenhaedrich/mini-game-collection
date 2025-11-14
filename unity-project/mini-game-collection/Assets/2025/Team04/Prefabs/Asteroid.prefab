@@ -75,9 +75,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: c245ebf850b31d54c9bb0db4995031b8, type: 3}
-  m_Color: {r: 0.3794055, g: 0.7472192, b: 0.9245283, a: 1}
+  m_Color: {r: 0.42626378, g: 0.82187396, b: 0.9716981, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -99,6 +99,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e58583eee07930449417362e35340d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <MiniGameManager>k__BackingField: {fileID: 0}
+  Direction: {x: 0, y: -1}
+  Speed: 3
+  RotationSpeed: 0
+  Lifetime: 12
 --- !u!58 &5248713042715067943
 CircleCollider2D:
   m_ObjectHideFlags: 0
