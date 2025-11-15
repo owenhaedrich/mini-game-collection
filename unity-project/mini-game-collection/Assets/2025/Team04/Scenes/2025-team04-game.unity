@@ -5747,6 +5747,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1629447523, guid: 04be792150cf58041846f91f4cebdcc4,
         type: 3}
+    - target: {fileID: 1155257684815312838, guid: 4dadae659364d2e4f88d43fd97d7bf87,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2675105551949224847, guid: 4dadae659364d2e4f88d43fd97d7bf87,
         type: 3}
       propertyPath: m_Name
@@ -6791,8 +6796,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ComponentVersion: 1
   m_AssetsPPU: 100
-  m_RefResolutionX: 1920
-  m_RefResolutionY: 1080
+  m_RefResolutionX: 1680
+  m_RefResolutionY: 1050
   m_CropFrame: 0
   m_GridSnapping: 1
   m_FilterMode: 0
@@ -6977,6 +6982,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -1772690511, guid: 04be792150cf58041846f91f4cebdcc4,
         type: 3}
+    - target: {fileID: 1155257684815312838, guid: 4dadae659364d2e4f88d43fd97d7bf87,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2675105551949224847, guid: 4dadae659364d2e4f88d43fd97d7bf87,
         type: 3}
       propertyPath: m_Name
