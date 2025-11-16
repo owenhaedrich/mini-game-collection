@@ -15,7 +15,9 @@ Our concept is a competitive 2-player arcade minigame where both players face ea
 
 Floating asteroids drift through the center area, creating shifting cover that players must shoot around or use to block incoming fire. The goal is to hit the opposing player as many times as possible before the match timer ends.
 
-![Concept Animation](https://i.imgur.com/MGVQm2J.gif)
+![Concept](https://i.imgur.com/91tTcGb.jpeg)
+
+[Concept Animation]([https://i.imgur.com/MGVQm2J.gif](https://i.imgur.com/91tTcGb.jpeg))
 
 ## Core Mechanic
 - Collect rocket pickup
