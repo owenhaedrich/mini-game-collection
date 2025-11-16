@@ -15,6 +15,8 @@ Our concept is a competitive 2-player arcade minigame where both players face ea
 
 Floating asteroids drift through the center area, creating shifting cover that players must shoot around or use to block incoming fire. The goal is to hit the opposing player as many times as possible before the match timer ends.
 
+![Concept Animation](https://i.imgur.com/MGVQm2J.gif)
+
 ## Core Mechanic
 - Collect rocket pickup
 - Aim by positioning your character along the platform
@@ -52,13 +54,14 @@ This creates accessible, immediately playable competitive games that work well i
 
 | Phase      | Description                  |
 |------------|------------------------------|
-| Countdown  | 3 seconds                    |
-| Live Play  | 30 or 60 seconds depending on testing |
+| Countdown  | 3 seconds to get ready       |
+| Live Play  | 60 seconds to score points   |
 | End Screen | Display winner               |
 
 ## Scoring
-+1 point each time a player hits the opponent  
-Highest score at timer end wins?
++1 point each time a player hits the opponent.
+ 
+Highest score at timer end wins!
 
 ## Asteroid Obstacles
 - Random spawning along center field
