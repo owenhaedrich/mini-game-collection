@@ -17,7 +17,7 @@ Floating asteroids drift through the center area, creating shifting cover that p
 
 ![Concept](https://i.imgur.com/91tTcGb.jpeg)
 
-[Concept Animation]([https://i.imgur.com/MGVQm2J.gif](https://i.imgur.com/91tTcGb.jpeg))
+[Concept Animation](https://i.imgur.com/MGVQm2J.gif)
 
 ## Core Mechanic
 - Collect rocket pickup
