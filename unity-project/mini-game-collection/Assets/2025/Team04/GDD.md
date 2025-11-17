@@ -4,6 +4,8 @@
 
 **Game Title:** Asteroid Alley
 
+[Game Design Commentary Video](https://www.youtube.com/watch?v=sVb3m7QesSY)
+
 ## Roles
 - **Owen:** lead programmer
 - **Blair:** documentation, glue guy, programmer assistant
