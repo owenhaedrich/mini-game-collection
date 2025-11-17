@@ -70,3 +70,10 @@ Highest score at timer end wins!
 - Moves horizontally up or down
 - Varies in size and speed
 - Can block rockets or create trick-shot moments
+
+## Future Considerations
+Tournament support could enable leaderboards and seasonal competitions, tracking cumulative wins across multiple cabinets to keep players invested. 
+
+Spectator-facing features like dramatic replays or shot-trail visualization would enhance arcade viewing and build crowd engagement around close matches. 
+
+Power-ups such as multi-shot rockets or temporary shields could refresh the meta without disrupting the core 60-second loop.
